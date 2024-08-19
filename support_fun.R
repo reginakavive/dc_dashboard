@@ -225,7 +225,9 @@ create_tab_panel <- function(tab_name) {
                  ),
                  tabPanel(tabName="glossary" ,"GLOSSARY",
                           includeHTML(paste0('./www/Glossary/glossary_',uc,'.html'))
-                          #includeHTML('Solidaridadglossary.html')
+                 ),
+                 tabPanel(tabName="howto" ,"GUIDE",
+                          includeHTML(paste0('./www/Guide/HowTo_',uc,'.html'))
                  ),
 
                )

@@ -907,11 +907,50 @@ DEMO.ENHHReg <- DEMO.ENReg %>%
   full_join(DEMO.HHReg, by = "ENID") %>%
   suppressWarnings()
 
+#****
+# Function to extract latitude and longitude
+extract_coordinates <- function(point) {
+  # Split the string by "."
+  parts <- strsplit(point, "\\.")[[1]]
+  
+  # Extract latitude: first part and second part minus last digit of the second part
+  latitude_part1 <- parts[1]
+  latitude_part2 <- substr(parts[2], 1, nchar(parts[2]) - 1)
+  latitude <- paste(latitude_part1, latitude_part2, sep = ".")
+  
+  # Extract longitude: last digit of the second part + third part
+  last_digit_second_part <- substr(parts[2], nchar(parts[2]), nchar(parts[2]))
+  longitude <- paste(last_digit_second_part, parts[3], sep = ".")
+  
+  return(c(latitude = latitude, longitude = longitude))
+}
+
+# Apply the function to the 'geopoint' column and convert to a data frame
+extracted_data <- t(sapply(DEMO.valData$geopoint, extract_coordinates))
+extracted_df <- as.data.frame(extracted_data, stringsAsFactors = FALSE)
+colnames(extracted_df) <- c("Latitude", "Longitude")
+
+# Combine the existing dataframe with the new latitude and longitude columns
+DEMO.valData2 <- cbind(DEMO.valData, extracted_df)
+
+
+# Define the bounds for Nigeria
+lat_min <- 4.3
+lat_max <- 14.5
+long_min <- 3.9
+long_max <- 14.7
+
+# Filter the dataframe to include only rows within the bounds of Nigeria
+DEMO.valData3 <- DEMO.valData2 %>%
+  mutate(Latitude = as.numeric(Latitude))%>%
+  mutate(Longitude = as.numeric(Longitude))%>%
+  filter(Latitude >= as.numeric(lat_min) & Latitude <= as.numeric(lat_max) &
+           Longitude >= as.numeric(long_min) & Longitude <= as.numeric(long_max))%>%
+  suppressWarnings()
 
 
 #Validation data
-DEMO.val1<-DEMO.valData%>%
-  
+DEMO.val1<-DEMO.valData3%>%
   as.data.frame()%>%
   select(-any_of(c( "_notes" , "_total_media", "_id", "_tags", "_uuid" ,"start", "_edited","_status" ,"_version" , "_duration"  ,"_xform_id" ,"_attachments", "_geolocation" ,"_media_count" ,"formhub/uuid"   ,
                     "_submitted_by","consent/photo","_date_modified","meta/instanceID"  ,"_submission_time", "_xform_id_string" ,"_bamboo_dataset_id"  ,
@@ -921,15 +960,17 @@ DEMO.val1<-DEMO.valData%>%
     HHID = HHID,
     Country = country,
     Event= `purpose/event`,
-    latitude= geopoint,
-    longitude= geopoint,
+    latitude= Latitude,
+    longitude= Longitude,
     today = end
   ) %>%
   mutate(today = as.IDate(today)) %>%
   arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
   distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
   mutate(Stage = "Validation") %>%
-  mutate(Country = capitalize(Country))
+  mutate(Country = capitalize(Country))%>%
+  filter(ENID != "SGEAZZ000102")#
+
 
 
 
