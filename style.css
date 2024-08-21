@@ -1,161 +1,292 @@
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+.container-fluid2 {
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar Styles */
 .navbar {
   position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-  min-height: 60px;
-  margin-bottom: 0px;
-  border: 1px solid transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9997; /* Ensure this is above other elements */
+  height: 60px;
+  margin-bottom: 0;
+  background: linear-gradient(135deg, #004d2d, #006837); /* Subtle gradient for a smoother look */
+  border: none; /* Removed border for a cleaner appearance */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow for a smoother effect */
+  border-radius: 4px; /* Optional: rounded corners for a softer look */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
-.navbar + .container-fluid {
-      padding-top: 60px; /* Adjust this value as needed */
-    }
+/* Navbar Hover/Active State */
+.navbar:hover,
+.navbar:focus {
+  background: linear-gradient(135deg, #003d24, #004d2d); /* Darker gradient on hover for visual feedback */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
 
+/* Navbar Links */
+.navbar a {
+  color: white; /* Ensure text is readable against the dark gradient */
+  text-decoration: none;
+  padding: 15px 20px; /* Spacing for links */
+  display: inline-block; /* Ensure links are displayed inline with proper spacing */
+}
+
+/* Navbar Links Hover/Active State */
+.navbar a:hover,
+.navbar a:focus {
+  color: #fdb415; /* Accent color for hover effect */
+}
+
+/* Mobile Menu Button (if applicable) */
+.navbar .menu-button {
+  display: none; /* Hide menu button by default */
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    display: flex;
+    flex-direction: column; /* Stack items vertically in mobile view */
+    align-items: center;
+  }
+
+  .navbar .menu-button {
+    display: block; /* Show menu button on mobile */
+    background: #c3531f; /* Accent color for the menu button */
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .navbar a {
+    padding: 10px; /* Adjust padding for mobile view */
+  }
+}
+
+/* Container Fluid Styles */
 .container-fluid {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 60px; /* Add top margin to offset the fixed header */
+  border-radius: 0px;
+  background-color: transparent /* Fade brown for background */
+  position: relative; /* Ensure it stays within the normal flow */
+}
+
+
+.logo {
+  background-color: #006837;
+}
+
+.logo:hover {
+  background-color: #55b047;
+}
+
+.main-header {
+  height: 0px;
+  z-index: 9999;
+}
+
+.main-header .logo {
+  height: 0px;
+}
+.main-header .sidebar-toggle {
+  float: right;
+  z-index: 9999;
+}
+.content {
+  min-height: 250px;
+  background-color: #f2f2f2;
+  padding: 15px;
+    padding-top: 130px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 0px;
-  padding-right: 0px;
+}
+
+/* Base Styles for Nav Tabs */
+.nav-tabs {
+  border-bottom: 1px solid #c9d6e0;
+  background: #f2f2f2; /* Changed to white for a cleaner look */
+  padding: 10px 15px; /* Adjusted padding for better spacing */
+  position: fixed;
+  top: 60px; /* Adjusted to avoid overlap with navbar */
+  width: calc(100% - 20px); /* Full-width minus padding */
+  z-index: 9999;
+  border-radius: 4px; /* Matches navbar's border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth transition for background changes */
+}
+
+/* Nav Tabs Link Styles */
+.nav-tabs .nav-link {
+  color: #452d22; /* Dark brown for text to maintain readability and match the color scheme */
+  border: 1px solid transparent; /* Remove default borders */
+  border-radius: 4px; /* Rounded corners for tabs */
+  margin: 0 5px; /* Space between tabs */
+  padding: 10px 15px; /* Padding for better click area */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Active Tab */
+.nav-tabs .nav-link.active {
+  color: #ffffff; /* White text for active tab */
+  background: #006837; /* Dark green background for active tab */
+  border-color: #006837; /* Match the border with the active tab background */
+}
+
+/* Hover State */
+.nav-tabs .nav-link:hover {
+  color: #c3531f; /* Burnt orange for hover effect */
+  background: #e9ecef; /* Light background on hover for contrast */
+}
+
+
+/* Responsive Adjustments */
+
+/* On smaller screens, adjust padding and width */
+@media (max-width: 992px) {
+  .nav-tabs {
+    width: calc(100% - 50px); /* More space for smaller screens */
+    top: 60px; /* Adjust top position */
+    padding: 10px 10px; /* Adjust padding */
+  }
+
+  .nav-tabs .nav-link {
+    padding: 8px 10px; /* Reduce padding for smaller screens */
+  }
+}
+
+/* On very small screens, stack the tabs vertically */
+@media (max-width: 576px) {
+  .nav-tabs {
+    width: 100%; /* Full width */
+    top: 50px; /* Adjust top position */
+    flex-direction: column; /* Stack vertically */
+    padding: 5px; /* Adjust padding */
+    box-shadow: none; /* Remove shadow for a cleaner look */
+  }
+
+  .nav-tabs .nav-link {
+    display: block; /* Block display for stacking */
+    margin: 5px 0; /* Space between stacked tabs */
+    text-align: center; /* Center align text */
+  }
+}
+
+
+.main-header .navbar {
+  -webkit-transition: margin-left .3s ease-in-out;
+  -o-transition: margin-left .3s ease-in-out;
+  transition: margin-left .3s ease-in-out;
+  margin-bottom: 0;
+  margin-left: 0px;
+  border: none;
+  min-height: 0;
+  border-radius: 0;
+  height: 0px !important;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+/* Sidebar Styles */
+.sidebar,
+.main-sidebar {
+  background-color: #efecea; /* Background color of the sidebar */
+  color: #452d22; /* Text color for readability */
+  position: fixed;
+  top: 60px; /* Height of the fixed header */
+  bottom: 0;
+  left: 0;
+  padding-top: 0;
+  padding-right: 5px;
+  padding-left: 15px; /* Added padding on the left for spacing */
+  min-height: 100%;
+  width: 230px;
+  z-index: 9998;
+  overflow-y: auto;
+  transition: transform .3s ease-in-out, width .3s ease-in-out;
+  border-right: 1px solid #dcdcdc; /* Optional border for visual separation */
+}
+
+/* Sidebar Links */
+.sidebar a,
+.main-sidebar a {
+  color: #452d22; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.sidebar a:hover,
+.main-sidebar a:hover {
+  color: #c3531f; /* Highlight color on hover */
+}
+
+/* Sidebar Heading */
+.sidebar h2,
+.main-sidebar h2 {
+  color: white; /* Heading color */
+  font-size: 1.2em; /* Slightly larger font size for headings */
+  margin-top: 0; /* Remove top margin */
+}
+
+/* Optional: Add a section background color */
+.sidebar section,
+.main-sidebar section {
+  background-color: #efecea; /* Light section background for contrast */
+  padding: 10px; /* Padding inside sections */
+  border-radius: 5px; /* Optional: rounded corners for sections */
+  margin-bottom: 15px; /* Space between sections */
 }
 
 
 
-/* logo */
-        .logo {
-        background-color: #012514;
-        }
-        .main-header {
-        background-color: #012514;height:60px;
-        }
-        /* logo when hovered */
-        .logo:hover {
-        background-color: #012514;
-        }
-        /* navbar (rest of the header) */
-        .navbar {
-        background-color: #012514;
-        }
-        /* sidebar */
-        .sidebar {
-        background-color:#02371d ;
-        }
-        /* sidebar */
-        .main-sidebar {
-        background-color: #02371d;
-        }
-        .main-sidebar, .skin-blue .wrapper {
-  background-color: #02371d;
+.info-box{
+  border-radius: 8px;
 }
-        .sidebar-menu a {
-        color:#ae755b;
-        background-color: #014725;
-        }
-        a {
-        color:#ae755b;
-        }
-        .info-box-icon {
-        color:#ae755b;
-        }
-        .main-header .sidebar-toggle {
-          float: right;
-        color:transparent;
-        }
-        .fa-comment {
-        color:white;
-        }
-        .a {
-        color:white;
-        }
-        /* active selected tab in the sidebarmenu */
-        .main-sidebar .sidebar .sidebar-menu .active a{
-        background-color: #27674b;
-        }
-        
-        
-/* change size of icons in sub-menu items */
-        .sidebar .sidebar-menu .treeview-menu>li>a>.fa {
-        font-size: 15px;
-        }
-        .sidebar .sidebar-menu .treeview-menu>li>a>.glyphicon {
-        font-size: 13px;
-        }
-        /* Hide icons in sub-menu items */
-        .sidebar .sidebar-menu .treeview>a>.fa-angle-left {
-        display: none;
-        }
-        
-        .box.box-solid.box-primary>.box-header {
-        color:#00FFFFFF;
-        background:#00FFFFFF
-        }
-        
-        .downloadData { vertical-align: left; height: 40px; font-size: 10px;}
-        .shiny-output-error { visibility: hidden; }
-        .shiny-output-error:before { visibility: hidden; }
-        .navbar-custom-menu>.navbar-nav>li:last-child>.dropdown-menu { width:10px; font-size:10px; padding:1px; margin:1px;}
-        .navbar-custom-menu> .navbar-nav> li:last-child > .dropdown-menu > h4 {width:0px; font-size:0px; padding:0px; margin:0px;}
-        .navbar-custom-menu> .navbar-nav> li:last-child > .dropdown-menu > p {width:0px; font-size:0px; padding:0px; margin:0px;}
-        
-        hr {border-top: 1px solid #000000;}
-        
-        
-        
-        
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  color: white;
-  background-color: #012514;
-}        
-        
-        
- .wrapper {
+.box.box-solid.box-primary > .box-header {
+  color: #55b047 !important;
+  background: #ffffff; /* Changed to white for contrast */
+}
+
+
+.dropdown-menu > .active > a {
+  color: #fdb415 !important;
+  background-color: #006837 !important;
+}
+
+hr {
+  border-top: 1px solid #452d22;
+}
+
+.wrapper {
   height: 100%;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #ecf0f5;
-}       
-        
-        
-.dropdown-menu > .active > a{
-  color: #ffc84f !important;
-  background-color:#011c13 !important;
-}   
-        
-        
-.main-header .logo {
-  
-  height: 0px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
 }
-        
-.main-sidebar {
-   position: fixed;
-   top: 60px; /* Height of the fixed header */
-  bottom: 0;
-  left: 0;
-  padding-top: 0;
-  min-height: 100%;
-  width: 230px;
-  z-index: 1000;
-  overflow-y: auto;
-  -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
-  -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
-  -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
-  transition: transform .3s ease-in-out,width .3s ease-in-out;
-}       
-        
-        
-        
-.main-header {
-  background-color: #012514;
-  height: 0;
-}        
-        
-.account  {
-  z-index: 55550;
-}    
-        
+
 .main-header .navbar {
   -webkit-transition: margin-left .3s ease-in-out;
   -o-transition: margin-left .3s ease-in-out;
@@ -165,9 +296,174 @@
   border: none;
   min-height: 0;
   border-radius: 0;
-  height: 0;
+  height: 60px;
+}
+.rt-table{
+  border-radius: 8px;
+}
+.plot-container {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 15px; /* Added padding for content spacing */
 }
 
-.plot-container {
-      background-color: #f2f2f2; /* Set your desired background color here */
-    }
+.shiny-output-error {
+  visibility: hidden;
+}
+
+.shiny-output-error:before {
+  visibility: hidden;
+}
+
+.account {
+  z-index: 55550;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .main-sidebar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-sidebar {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-sidebar {
+    width: 150px;
+    transform: translateX(-150px); /* Hide sidebar off-screen */
+  }
+
+  .main-sidebar.open {
+    transform: translateX(0); /* Show sidebar when toggled */
+  }
+
+  .navbar {
+    margin-bottom: 0;
+    background-color: #006837;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-sidebar {
+    width: 100%;
+    position: static;
+    height: auto;
+    transform: none;
+  }
+  
+  .navbar {
+    position: static;
+    margin-bottom: 0;
+  }
+}
+a {
+  color: #c3531f;
+  text-decoration: none;
+}
+
+/* General Table Styles */
+.Reactable .rt-table {
+  width: 100%;
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff; /* White background for tables */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: show; /* Ensures rounded corners are visible */
+  table-layout: auto; /* Allows cells to adjust width based on content */
+}
+
+.Reactable .rt-thead {
+  background-color: #efecea ; /* Dark green background for header */
+  color: #070000; /* White text color for better contrast */
+  font-weight: bold;
+}
+
+.Reactable .rt-th,
+.Reactable .rt-td {
+  border-bottom: 1px solid #e6e6e6; /* Subtle border for row separation */
+  text-align: right; /* Align text to the left for better readability */
+  min-width: 150px !important;
+}
+
+.Reactable .rt-th {
+  background-color: #efecea ; /* Dark green background for table headers */
+  color: #070000; /* White text for headers */
+  font-weight: bold; /* Make header text bold */
+}
+
+.Reactable .rt-td {
+  background-color: #ffffff; /* White background for table data */
+  color: #333333; /* Dark text color for contrast */
+}
+
+.Reactable .rt-tr:last-child .rt-td {
+  border-bottom: none; /* Removes bottom border from the last row */
+}
+
+/* Scrollbar Customization */
+.Reactable .rt-table::-webkit-scrollbar {
+  height: 8px; /* Custom scrollbar height */
+}
+
+.Reactable .rt-table::-webkit-scrollbar-thumb {
+  background-color: #c3531f; /* Custom scrollbar thumb color */
+  border-radius: 4px; /* Rounded corners for scrollbar thumb */
+}
+
+.Reactable .rt-table::-webkit-scrollbar-track {
+  background-color: #f2f2f2; /* Light gray background for scrollbar track */
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .Reactable .rt-th,
+  .Reactable .rt-td {
+    padding: 10px 12px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .Reactable .rt-th,
+  .Reactable .rt-td {
+    padding: 8px 10px; /* Further adjust padding for smaller screens */
+    font-size: 14px; /* Adjust font size for readability on small screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .Reactable .rt-table {
+    font-size: 12px; /* Reduce font size for very small screens */
+  }
+  
+  .Reactable .rt-th,
+  .Reactable .rt-td {
+    padding: 6px 8px; /* Further reduce padding for very small screens */
+  }
+}
+.btn{
+  background-color: #c3531f ;
+  color: white !important;
+  border-width: 0;
+}
+
+.pagination  {
+  color: #ecf0f1 !important;
+  background-color: #452d22 !important;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+
+.paginate_button.active {
+  z-index: 3;
+  color: #452d22 !important;
+  background-color: #efecea !important;
+  border-color: transparent;
+  cursor: default;
+}
