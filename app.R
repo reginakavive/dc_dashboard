@@ -137,8 +137,8 @@ server <- function(input, output, session) {
     
     ## 1. Header ------------------------------
     navbarPage(theme = shinytheme("flatly"), 
-               title = tags$div(style="font-size:20px !important;margin-top: -22px !important;color: #ffc84f;",
-                                img(src="Logo/EiA_logo.png", height = '50vh'),
+               title = tags$div(style="font-size:25px !important;margin-top: -22px !important;color: #fdb415;",
+                                img(src="Logo/EiA_logo3.png", height = '50vh'),
                                 HTML("&nbsp&nbsp&nbsp"),"Data Collection Dashboard", HTML("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp")
                ),
                id = "nav",

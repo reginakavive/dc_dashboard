@@ -662,6 +662,7 @@ KL.val1<-KL.valData%>%
   arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
   distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
   mutate(Stage = "Validation") %>%
+  mutate(Trial = "Validation") %>%
   mutate(Country = capitalize(Country))%>%
   filter(ENID != "KLENKE000000" ) %>%#leave out the enumerator registered for testing and monitoring the tool and is not expected to collect data
   filter(ENID != "KLENKE123456")
@@ -805,6 +806,7 @@ MC.val1<-MC.valData%>%
   arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
   distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
   mutate(Stage = "Validation") %>%
+  mutate(Trial = "Validation") %>%
   mutate(Country = capitalize(Country))
 
 
@@ -968,6 +970,7 @@ DEMO.val1<-DEMO.valData3%>%
   arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
   distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
   mutate(Stage = "Validation") %>%
+  mutate(Trial = "Validation") %>%
   mutate(Country = capitalize(Country))%>%
   filter(ENID != "SGEAZZ000102")#
 

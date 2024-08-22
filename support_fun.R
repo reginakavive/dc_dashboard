@@ -176,9 +176,10 @@ create_tab_panel <- function(tab_name) {
                  id = paste0("tabss-", uc),  # Unique id for each tabPanel
                  type = "tabs",
                  tabPanel(tabName="Summary"  ,"SUMMARY",
+                          div(class = "container-fluid2", 
                          # HTML('<h3>  Welcome! </h3>'),
                           #textOutput("selected_var"),
-                          HTML('<h5>  This data monitoring dashboards helps you track enumerator submissions for various trials.</h5>'),
+                          #HTML('<h5>  This data monitoring dashboards helps you track enumerator submissions for various trials.</h5>'),
                           HTML('<br>'),
                           fluidRow( column( width = 12,  align = 'left', infoBoxOutput(  paste0("project_",uc) ) , infoBoxOutput(paste0("country_",uc) ),infoBoxOutput(paste0("Totsub_box_",uc) ))
                                     #column( width = 6,  align = 'right', uiOutput("Totsub_box"))trials_map submission_trend
@@ -198,30 +199,44 @@ create_tab_panel <- function(tab_name) {
                         
                           fluidRow( column( width = 12,h4("", align = 'center'), reactableOutput(paste0("ranking_",uc)) )
                           )
+                          )
                          
                  ),
 
                  tabPanel(tabName="Enumerators","ENUMERATORS",
+                          div(class = "container-fluid2", 
                           HTML('<br>'),
                           HTML('<span  style="background-color: #55b047 ;align:right;" class="dot">Complete</span>&nbsp; <span  style="background-color: #fdb415 ;align:right;" class="dot">Missing Details</span>&nbsp;<span  style="background-color: #c3531f;align:right;" class="dot">Overdue</span>  &nbsp;<span  style="background-color: #BE93D4;align:left;" class="dot">Future Event</span>'),
                           HTML('<br>'),
                           reactableOutput(paste0("tableR_",uc))
+                          )
                  ),
 
                  tabPanel(tabName="issues" ,"ISSUES",
+                          div(class = "container-fluid2", 
                           HTML('<h5> The following list comprises all enumerator IDs (ENID) and Household IDs (HHID) that have been flagged as odd.</h5>'),
                           fluidRow( column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("issues_", uc)) )
+                          )
                           )
                           #reactableOutput("tableQ1")
                  ),
 
                  tabPanel(tabName= "data","DATA PREVIEW",
-                          column(12,
-                                 dataTableOutput(paste0('tabledownload_',uc)),style = "height:75vh; overflow-y: scroll;overflow-x: scroll;"
-                          ),
+                       
+                        
+                                 div( class = "container-fluid2", 
+                                       div(style = "text-align: right;",  # Inline CSS for alignment
+                                           downloadButton(paste0("downloadData_", uc), "Download CSV")
+                                       ),
+                                
+                                      HTML('<br>'),
+                                      dataTableOutput(paste0('tabledownload_',uc)),style = "height:75vh; overflow-y: scroll;overflow-x: scroll;"
+                                   )
+                                 
+                          
 
-                          HTML('<br>'),
-                          downloadButton(paste0("downloadData_",uc), "Download csv",style="color: green")
+                          
+                          
                  ),
                  tabPanel(tabName="glossary" ,"GLOSSARY",
                           includeHTML(paste0('./www/Glossary/glossary_',uc,'.html'))

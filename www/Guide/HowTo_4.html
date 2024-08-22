@@ -1,120 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" >
-    <meta name="generator" content="pandoc" >
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" >
-    
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Collection Monitoring Tool Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container-fluid {
+            width: 100%;
+            margin: 0 auto;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .container-fluid2 {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3, h4 {
+            color: #412a22;
+        }
+
+        h2 {
+            border-bottom: 2px solid #412a22;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section.level1 {
+            border-left: 4px solid #412a22;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section.level3 {
+            padding-left: 20px;
+            border-left: 2px solid #ddd;
+        }
+
+        .section.level4 {
+            padding-left: 20px;
+            border-left: 1px solid #ddd;
+        }
+
+        .highlight-green {
+            color: green;
+            font-weight: bold;
+        }
+
+        .highlight-orange {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .highlight-red {
+            color: red;
+            font-weight: bold;
+        }
+
+        .highlight-purple {
+            color: purple;
+            font-weight: bold;
+        }
+        .center-text {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    
-<div class="container-fluid main-container"> 
-    <div id="dcmt" class="section level1">
-        <h2>Data Collection Monitoring Tool Guide</h2>
-        <p style="color: #333;">This tool helps users monitor trials for their Minimum Viable Products (MVPs). 
-            It guides users through a series of steps to crosscheck submissions and track progress in near real-time. 
-            Additionally, it facilitates seamless communication with relevant extension agents in the field.
-        </p>
-        
-    </div>
-    <div id="define-the-trial-conditions" class="section level3" >
-            <h3 style="color: rgb(65,45,34);">I. Define the trial conditions</h3>
-            <p style="color: #333;">On the left-side panel of the tool, the user is initially provided
-                with a set of options to define the trial conditions.
-                .</p>
-                
+    <div class="container-fluid2">
+        <div id="dcmt" class="section level1">
+            <h2 class="center-text" >Data Collection Monitoring Tool Guide</h2>
+            <p>This tool helps users monitor trials for their Minimum Viable Products (MVPs). It guides users through a series of steps to crosscheck submissions and track progress in near real-time. Additionally, it facilitates seamless communication with relevant extension agents in the field.</p>
+        </div>
+
+        <div id="define-the-trial-conditions" class="section level3">
+            <h3>I. Define the trial conditions</h3>
+            <p>On the left-side panel of the tool, the user is initially provided with a set of options to define the trial conditions.</p>
+
             <div id="define-the-filter-options" class="section level4">
-                <h4 style="color: rgb(65,45,34)"> Define the Stage</h4>
-                <p style="color: #333;"> The user will need to select the stage for which the data is being collected. This could be the validation, piloting or NOT trials.</p>                
-              
+                <h4>Define the Stage</h4>
+                <p>The user will need to select the stage for which the data is being collected. This could be the validation, piloting, or NOT trials.</p>
 
-                <h4 style="color: rgb(65,45,34)">Define the Experiment</h4>
-                <p style="color: #333;"> The user will need to select the trial experiment. </p>                
-              
-                <h4 style="color: rgb(65,45,34)"> Define the Date</h4>
-                <p style="color: #333;"> The user will need to specify the trial period for which to monitor the submisions. The default period initially selected is the earliest date of submission and the current date. These vary for different usecases</p>                
-     
-                <h4 style="color: rgb(65,45,34)">Select the Enumerator</h4>
-                <p style="color: #333;"> This filter provides a list of all enumerators' identification numbers registered for the trial, in ascending order. 
-                    The initial selection shows details for all the eumerators. The user can select specific enumerators to view their progress. Multiple selection is allowed in this case</p>                
-            
-                <h4 style="color: rgb(65,45,34)"> Select the Household</h4>
-                <p style="color: #333;"> This filter provides a list of all registered households' identification numbers for the trial, in ascending order. 
-                    The initial selection shows details for all the households. The user can select specific households to view their progress. Multiple selection is allowed in this case</p>                
-                </div>
+                <h4>Define the Experiment</h4>
+                <p>The user will need to select the trial experiment.</p>
 
+                <h4>Define the Date</h4>
+                <p>The user will need to specify the trial period for which to monitor the submissions. The default period initially selected is the earliest date of submission and the current date. These vary for different use cases.</p>
+
+                <h4>Select the Enumerator</h4>
+                <p>This filter provides a list of all enumerators' identification numbers registered for the trial, in ascending order. The initial selection shows details for all the enumerators. The user can select specific enumerators to view their progress. Multiple selections are allowed in this case.</p>
+
+                <h4>Select the Household</h4>
+                <p>This filter provides a list of all registered households' identification numbers for the trial, in ascending order. The initial selection shows details for all the households. The user can select specific households to view their progress. Multiple selections are allowed in this case.</p>
+            </div>
+        </div>
 
         <div id="summary-page" class="section level3">
-                <h3 style="color: rgb(65,45,34)">II. Summary</h3>
-                <p style="color: #333;">The Summary page displays the overview of the submissions for the selected trial. The general usecase information; the usecase name, the country where the trials are conducted, are shown at the top. </p>
-             
-                <p style="color: #333;"> The Total Submissions: Displays the overall number of unique submissions for the trial, without any duplicates.  </p>
-                <p style="color: #333;"> The Trials by Location: Displays a map pinpointing the locations of various submissions.  </p>
-                <p style="color: #333;"> The Trend of Submission: This shows trend line graph and visually represents data points over time to illustrate how </p>
-                <p style="color: #333;"> Summary of Complete Submissions: The first table provides the total number of completed submissions from all enumerators, aggregated by event. The second table provides total number of completed submissions from each enumerator, aggregated by event. 
-                     The user can opt to download the results for offline or field use </p>
+            <h3>II. Summary</h3>
+            <p>The Summary page displays the overview of the submissions for the selected trial. The general use case information; the use case name, and the country where the trials are conducted are shown at the top.</p>
+            <p>The Total Submissions: Displays the overall number of unique submissions for the trial, without any duplicates.</p>
+            <p>The Trials by Location: Displays a map pinpointing the locations of various submissions.</p>
+            <p>The Trend of Submission: This shows a trend line graph and visually represents data points over time to illustrate how submissions are progressing.</p>
+            <p>Summary of Complete Submissions: The first table provides the total number of completed submissions from all enumerators, aggregated by event. The second table provides the total number of completed submissions from each enumerator, aggregated by event. The user can opt to download the results for offline or field use.</p>
         </div>
 
         <div id="enumerator-page" class="section level3">
-                <h3 style="color: rgb(65,45,34)">III. Enumerators</h3>
-                <p style="color: #333;"> The Enumerators page displays a timeline of submission events for each enumerator and household. The dates indicate when each specific event was submitted. 
-                    On ENID, HHID hover, the user can acess the enumerator and household name and contact information respectively</p>
-                <p style="color: #333;"> Different colors are used to indate the timeliness of data submitted based on specific periods required between the events, as provided by the agronomist:</p>
-                    <ul>
-                        <li style="color: green; font-weight: bold;">
-                            Green: The submission was completed within the required timeframe.
-                        </li>
-                        
-                        <li style="color: orange; font-weight: bold;">
-                            Orange: The submission is missing but is still within the allowed submission period.
-                        </li>
-                        
-                        <li style="color: red; font-weight: bold;">
-                            Red:  The submission is overdue and has exceeded the required period for completion.
-                        </li>
-                        
-                        <li style="color: purple; font-weight: bold;">
-                            Purple: The event is scheduled for the future, and the submission period has not yet begun.
-                        </li>
-
-                    </ul>                 
-                    
-                     
-                </div>
-
-        <div id="enumerator-page" class="section level3">
-            <h3 style="color: rgb(65,45,34)">IV. Issues</h3>
-            <p style="color: #333;"> The    Issues page displays various submissions that have been flagged as unusual and require attention. Issues may include:</p>
+            <h3>III. Enumerators</h3>
+            <p>The Enumerators page displays a timeline of submission events for each enumerator and household. The dates indicate when each specific event was submitted. On ENID, HHID hover, the user can access the enumerator and household name and contact information respectively.</p>
+            <p>Different colors are used to indicate the timeliness of data submitted based on specific periods required between the events, as provided by the agronomist:</p>
             <ul>
-                <li style=" font-weight: bold;">
-                    ENID or HHID Mismatches: Instances where the ENID or HHID do not adhere to the expected naming conventions.
-                </li>
-                
-                <li style="font-weight: bold;">
-                    Event Order Issues: Cases where submission events do not follow the expected sequence or where events are skipped.
-                </li>
-            </ul> 
-
+                <li class="highlight-green">Green: The submission was completed within the required timeframe.</li>
+                <li class="highlight-orange">Orange: The submission is missing but is still within the allowed submission period.</li>
+                <li class="highlight-red">Red: The submission is overdue and has exceeded the required period for completion.</li>
+                <li class="highlight-purple">Purple: The event is scheduled for the future, and the submission period has not yet begun.</li>
+            </ul>
         </div>
 
-        <div id="datapreview-page" class="section level3">
-            <h3 style="color: rgb(65,45,34)">IV. Data Preview</h3>
-            <p style="color: #333;"> This page displays a table with clean, organized data, allowing you to review the information before downloading. 
-                You can download the data as a CSV file for further analysis or record-keeping. The table includes all relevant fields and entries, ensuring that you have access to accurate
-                 and well-structured data. </p>
-            
+        <div id="issues-page" class="section level3">
+            <h3>IV. Issues</h3>
+            <p>The Issues page displays various submissions that have been flagged as unusual and require attention. Issues may include:</p>
+            <ul>
+                <li>ENID or HHID Mismatches: Instances where the ENID or HHID do not adhere to the expected naming conventions.</li>
+                <li>Event Order Issues: Cases where submission events do not follow the expected sequence or where events are skipped.</li>
+            </ul>
         </div>
 
-        <div id="datapreview-page" class="section level3">
-            <h3 style="color: rgb(65,45,34)">IV. Data Preview</h3>
-            <p style="color: #333;"> The Glossary page provides definitions and explanations for key terms and concepts used throughout the system. 
-                It serves as a reference to help users understand specialized vocabulary and acronyms. This page is organized for easy navigation, with terms listed by category,
-                 ensuring quick access to essential information. </p>
-            
+        <div id="data-preview-page" class="section level3">
+            <h3>V. Data Preview</h3>
+            <p>This page displays a table with clean, organized data, allowing you to review the information before downloading. You can download the data as a CSV file for further analysis or record-keeping. The table includes all relevant fields and entries, ensuring that you have access to accurate and well-structured data.</p>
         </div>
 
-        
-</div>  
-</div>  
+        <div id="glossary-page" class="section level3">
+            <h3>VI. Glossary</h3>
+            <p>The Glossary page provides definitions and explanations for key terms and concepts used throughout the system. It serves as a reference to help users understand specialized vocabulary and acronyms. This page is organized for easy navigation, with terms listed by category, ensuring quick access to essential information.</p>
+        </div>
+    </div>
 </body>
 </html>

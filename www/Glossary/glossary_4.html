@@ -1,32 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Collection Monitoring Tool Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
 
+        .container-fluid {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-<div >
-<p style= "text-align:justify"><b>Usecase:</b> Usecase short name</p>
-<p style= "text-align:justify"><b>Form:</b> ODK generated form used for the survey</p>
-<p style= "text-align:justify"><b>Country:</b> National administrative level. Target geography of the specified project.</p>
-<p style= "text-align:justify"><b>Enumerator:</b> Survey personnel charged with data collection</p>
-<p style= "text-align:justify"><b>Household:</b> An agricultural household where at least one member of the household is operating a holding or when the household head, reference person or main income earner is economically active in agriculture..</p>
-<p style= "text-align:justify"><b>ENID:</b> Enumerator identification number (Hover to get enumerator details).</p>
-<p style= "text-align:justify"><b>HHID:</b> Household identification number.</p>
-<p style= "text-align:justify"><b>Complete:</b> Submitted with correct information within required time period.</p>
-<p style= "text-align:justify"><b>Missing Details:</b> Missing information within required time period.</p>
-<p style= "text-align:justify"><b>Overdue:</b> Submission overdue with or without information submitted.</p>
-<p style= "text-align:justify"><b>Future Event:</b> Future data collection event, due date not yet passed and information not yet submitted.</p>
+        .container-fluid2 {
+            width: 98%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-<p style= "text-align:justify"><b>Events:</b> Various field events monitored (these can vary with usecase).</p>
+        h2, h3, h4 {
+            color: #4a3d29;
+        }
 
-    <p>---</p>
-    <p style= "text-align:centre"><b>Validation Stage Events</b>.</p>
-    <p>---</p>
-    
-<p style= "text-align:justify"><b>Site Selection:</b> When the household was registered by enumerator. Obtained from Register or Verify Household form. </p>
-<p style= "text-align:justify"><b>Event 1:</b> Data collection event 1/ Planting date - When planting was done.</p>
-<p style= "text-align:justify"><b>Event 2:</b> Data collection event 2/ Field monitoring.</p>
-<p style= "text-align:justify"><b>Event 3:</b> Data collection event 3/ Field monitoring.</p>
-<p style= "text-align:justify"><b>Event 4:</b> Data collection event 4/ Field monitoring.</p>
-<p style= "text-align:justify"><b>Event 5:</b> Data collection event 5/ Field monitoring.</p>
-<p style= "text-align:justify"><b>Event 6:</b> Data collection event 6/ Field monitoring.</p>
-<p style= "text-align:justify"><b>Event 7:</b> Data collection event 7/ Harvest date - When harvesting was done.</p>
-<p style= "text-align:justify"><b>Data Preview:</b> Preview and download data as submitted via ODK forms by the enumerators</p>
-</div>
+        h2 {
+            border-bottom: 3px solid #4a3d29;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background-color: #efecea;
+            border-left: 4px solid #452d22;
+            padding: 10px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid2">
+        <h2 class="center-text" >Key Terms</h2>
+        <p>Below are the descriptions of key terms, events, and procedures used to track and evaluate data collection activities.</p>
+        
+        <p class="highlight"><strong>Usecase:</strong> Usecase short name</p>
+        <p class="highlight"><strong>Form:</strong> ODK generated form used for the survey</p>
+        <p class="highlight"><strong>Country:</strong> National administrative level. Target geography of the specified project.</p>
+        <p class="highlight"><strong>Enumerator:</strong> Survey personnel charged with data collection</p>
+        <p class="highlight"><strong>Household:</strong> An agricultural household where at least one member is operating a holding or when the household head, reference person, or main income earner is economically active in agriculture.</p>
+        <p class="highlight"><strong>ENID:</strong> Enumerator identification number (Hover to get enumerator details).</p>
+        <p class="highlight"><strong>HHID:</strong> Household identification number.</p>
+        <p class="highlight"><strong>Complete:</strong> Submitted with correct information within the required time period.</p>
+        <p class="highlight"><strong>Missing Details:</strong> Missing information within the required time period.</p>
+        <p class="highlight"><strong>Overdue:</strong> Submission overdue with or without information submitted.</p>
+        <p class="highlight"><strong>Future Event:</strong> Future data collection event, due date not yet passed and information not yet submitted.</p>
+        <p class="highlight"><strong>Issues:</strong> Data issues that might arise from submissions</p>
+        <p class="highlight"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
+        <p class="highlight"><strong>Events:</strong> Various field events monitored (these can vary with usecase).</p>
+
+        <div class="divider">
+            <p class="center-text"><strong>Validation Stage Events</strong></p>
+        </div>
+
+        <p class="highlight"><strong>Site Selection:</strong> When the household was registered by enumerator. Obtained from Register or Verify Household form.</p>
+        <p class="highlight"><strong>Event 1:</strong> Data collection event 1/ Planting date - When planting was done.</p>
+        <p class="highlight"><strong>Event 2:</strong> Data collection event 2/ Field monitoring.</p>
+        <p class="highlight"><strong>Event 3:</strong> Data collection event 3/ Field monitoring.</p>
+        <p class="highlight"><strong>Event 4:</strong>Data collection event 4/ Field monitoring.</p>
+        <p class="highlight"><strong>Event 5:</strong> Data collection event 5/ Field monitoring.</p>
+        <p class="highlight"><strong>Event 6:</strong> Data collection event 6/ Field monitoring.</p>
+        <p class="highlight"><strong>Event 7:</strong> Data collection event 7/ Harvest date - When harvesting was done.</p>
+        <p class="highlight"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
+    </div>
+</body>
+</html>
 
