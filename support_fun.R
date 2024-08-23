@@ -190,9 +190,10 @@ create_tab_panel <- function(tab_name) {
                           ),
                           HTML('<br>'),
                          fluidRow(
-                           column(width = 9, h4("Summary of Complete Submissions", align = 'center')),
-                           column(width = 1, downloadButton(paste0("downloadsummary_", uc), "Download Summary", style = "color: green")),
-                           column(width = 2)
+                           h4("Summary of Complete Submissions", align = 'center'),
+                           div(style = "text-align: right;",  # Inline CSS for alignment
+                               downloadButton(paste0("downloadsummary_", uc), "Download Summary")
+                           ),
                          ),
                          fluidRow( column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("rankingevents_", uc)) )
                          ),
@@ -242,7 +243,7 @@ create_tab_panel <- function(tab_name) {
                           includeHTML(paste0('./www/Glossary/glossary_',uc,'.html'))
                  ),
                  tabPanel(tabName="howto" ,"GUIDE",
-                          includeHTML(paste0('./www/Guide/HowTo_',uc,'.html'))
+                          includeHTML('./www/Guide/HowTo.html')
                  ),
 
                )
