@@ -137,9 +137,9 @@ server <- function(input, output, session) {
     
     ## 1. Header ------------------------------
     navbarPage(theme = shinytheme("flatly"), 
-               title = tags$div(style="font-size:25px !important;margin-top: -22px !important;color: #fdb415;",
+               title = tags$div(
                                 img(src="Logo/EiA_logo3.png", height = '50vh'),
-                                HTML("&nbsp&nbsp&nbsp"),"Data Collection Dashboard", HTML("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp")
+                                HTML("&nbsp&nbsp&nbsp"),"Data Collection Dashboard"
                ),
                id = "nav",
                windowTitle = "DC Dashboard",
@@ -345,7 +345,7 @@ server <- function(input, output, session) {
       
       output[[paste0("datefinderr_",i)]] <-renderUI({
         dateRangeInput(paste0("datefinder_",i),
-                       "DATE:",
+                       "Date",
                        start = min(na.omit(rawdata$today)),
                        end   =  Sys.time())
       })
