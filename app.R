@@ -36,7 +36,8 @@ if(!'aws.s3' %in% installed.packages()[, 'Package']) {install.packages('aws.s3',
 if(!'data.table' %in% installed.packages()[, 'Package']) {install.packages('data.table', repos = 'http://cran.us.r-project.org')}
 suppressMessages(suppressWarnings(library("data.table",character.only = TRUE)))
 suppressMessages(suppressWarnings(library("aws.s3",character.only = TRUE)))
-
+if(!'auth0' %in% installed.packages()[, 'Package']) {install.packages('auth0', repos = 'http://cran.us.r-project.org')}
+suppressMessages(suppressWarnings(library("auth0",character.only = TRUE)))
 #
 #triger trigger on the CI/CD pipeline 
 #tinytex::install_tinytex()
@@ -1397,5 +1398,5 @@ server <- function(input, output, session) {
 
 # Run the application
 shinyApp(ui = ui, server = server,options = list(port = 8000))
-
+#auth0::shinyAppAuth0(ui = ui, server = server,options = list(port = 8000))
 

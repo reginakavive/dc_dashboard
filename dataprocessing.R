@@ -970,10 +970,9 @@ DEMO.val1<-DEMO.valData3%>%
   arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
   distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
   mutate(Stage = "Validation") %>%
-  mutate(Trial = "Validation") %>%
+  mutate(Trial = "Validation Demo") %>%
   mutate(Country = capitalize(Country))%>%
   filter(ENID != "SGEAZZ000102")#
-
 
 
 
@@ -994,13 +993,13 @@ DEMO.ENHHReg2<-DEMO.ENHHReg %>%
 
 #get hh details
 DEMO.SUM_data <- DEMO.val2 %>%
-  full_join(MC.ENHHReg2, by = c("ENID","HHID")) %>% #join identifiers and val data while keeping all enumerators/households
-  left_join(MC.ENReg, by = "ENID")  %>%
+  full_join(DEMO.ENHHReg2, by = c("ENID","HHID")) %>% #join identifiers and val data while keeping all enumerators/households
+  left_join(DEMO.ENReg, by = "ENID")  %>%
   arrange(ENID,HHID, desc(`Site Selection`)) %>%
   distinct(ENID,HHID, .keep_all = TRUE) %>%
   filter(!(duplicated(ENID) & is.na(HHID))) %>% # remove rows where ENID is not unique and HHID is NA
   mutate(Stage = "Validation") %>%
-  mutate(Trial = "Validation") %>%
+  mutate(Trial = "Validation Demo") %>%
   suppressWarnings()
 
 DEMO.val1 <- lapply(DEMO.val1, function(x) {
