@@ -450,6 +450,8 @@ body {
   padding: 10px; /* Padding inside the menu */
   z-index: 10000; /* Ensure it appears above other elements */
   min-width: 160px; /* Minimum width for the dropdown */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 /* Dropdown Menu Items */
