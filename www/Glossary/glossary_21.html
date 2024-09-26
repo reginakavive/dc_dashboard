@@ -23,12 +23,12 @@
         }
 
         .container-fluid2 {
-            width: 98%;
-            margin: 20px auto;
+            /*max-width: 900px;  Constrain width for better readability */
+            margin: 0px auto; /* Centering the container */
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* White background for the main container */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         h2, h3, h4 {
@@ -39,16 +39,13 @@
             border-bottom: 3px solid #4a3d29;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         h3 {
             margin-top: 20px;
             margin-bottom: 15px;
-        }
-
-        h4 {
-            margin-top: 15px;
-            margin-bottom: 10px;
+            font-weight: normal;
         }
 
         p {
@@ -56,10 +53,22 @@
             margin-bottom: 10px;
         }
 
-        .highlight {
-            background-color: #efecea;
-            border-left: 4px solid #452d22;
-            padding: 10px;
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Added transform */
+        }
+
+        .section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .section.level1 {
+            border-left: 6px solid #412a22;
         }
 
         .divider {
@@ -72,63 +81,74 @@
         .center-text {
             text-align: center;
         }
+
+        @media (max-width: 768px) {
+            .container-fluid2 {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .section {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid2">
-        <h2 class="center-text" >Key Terms</h2>
+        <h2>Key Terms</h2>
         <p>Below are the descriptions of key terms, events, and procedures used to track and evaluate data collection activities.</p>
-        
-        <p class="highlight"><strong>Usecase:</strong> Usecase short name</p>
-        <p class="highlight"><strong>Form:</strong> ODK generated form used for the survey</p>
-        <p class="highlight"><strong>Country:</strong> National administrative level. Target geography of the specified project.</p>
-        <p class="highlight"><strong>Enumerator:</strong> Survey personnel charged with data collection</p>
-        <p class="highlight"><strong>Household:</strong> An agricultural household where at least one member is operating a holding or when the household head, reference person, or main income earner is economically active in agriculture.</p>
-        <p class="highlight"><strong>ENID:</strong> Enumerator identification number (Hover to get enumerator details).</p>
-        <p class="highlight"><strong>HHID:</strong> Household identification number.</p>
-        <p class="highlight"><strong>Complete:</strong> Submitted with correct information within the required time period.</p>
-        <p class="highlight"><strong>Missing Details:</strong> Missing information within the required time period.</p>
-        <p class="highlight"><strong>Overdue:</strong> Submission overdue with or without information submitted.</p>
-        <p class="highlight"><strong>Future Event:</strong> Future data collection event, due date not yet passed and information not yet submitted.</p>
-        <p class="highlight"><strong>Issues:</strong> Data issues that might arise from submissions</p>
-        <p class="highlight"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
-        <p class="highlight"><strong>Events:</strong> Various field events monitored (these can vary with usecase).</p>
+
+        <div class="section level1"><strong>Usecase:</strong> Usecase short name</div>
+        <div class="section level1"><strong>Form:</strong> ODK generated form used for the survey</div>
+        <div class="section level1"><strong>Country:</strong> National administrative level. Target geography of the specified project.</div>
+        <div class="section level1"><strong>Enumerator:</strong> Survey personnel charged with data collection</div>
+        <div class="section level1"><strong>Household:</strong> An agricultural household where at least one member is operating a holding or when the household head, reference person, or main income earner is economically active in agriculture.</div>
+        <div class="section level1"><strong>ENID:</strong> Enumerator identification number (Hover to get enumerator details).</div>
+        <div class="section level1"><strong>HHID:</strong> Household identification number.</div>
+        <div class="section level1"><strong>Complete:</strong> Submitted with correct information within the required time period.</div>
+        <div class="section level1"><strong>Missing Details:</strong> Missing information within the required time period.</div>
+        <div class="section level1"><strong>Overdue:</strong> Submission overdue with or without information submitted.</div>
+        <div class="section level1"><strong>Future Event:</strong> Future data collection event, due date not yet passed and information not yet submitted.</div>
+        <div class="section level1"><strong>Issues:</strong> Data issues that might arise from submissions</div>
+        <div class="section level1"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</div>
+        <div class="section level1"><strong>Events:</strong> Various field events monitored (these can vary with usecase).</div>
 
         <div class="divider">
             <p class="center-text"><strong>Validation Stage Events</strong></p>
         </div>
 
-        <p class="highlight"><strong>Site Selection:</strong> When the household was registered by enumerator. Obtained from Register or Verify Household form.</p>
-        <p class="highlight"><strong>Event S:</strong> Soil sampling by EN jointly with researcher</p>
-        <p class="highlight"><strong>Event 0:</strong> Informed consent, location, treatments, land preparation</p>
-        <p class="highlight"><strong>Event 1:</strong> Monitoring at planting</p>
-        <p class="highlight"><strong>Event 2:</strong> Monitoring + gapping at 4 WAP</p>
-        <p class="highlight"><strong>Event 3:</strong> Fertilizer application 1 at 2-6 WAP</p>
-        <p class="highlight"><strong>Event 4:</strong> Fertilizer application 2 at 8-12 WAP</p>
-        <p class="highlight"><strong>Event 5:</strong> Monitoring at 12 WAP</p>
-        <p class="highlight"><strong>Event 6:</strong> Monitoring at 24 WAP</p>
-        <p class="highlight"><strong>Event 7:</strong> Monitoring at 36 WAP</p>
-        <p class="highlight"><strong>Event 8:</strong> Harvest</p>
-        <p class="highlight"><strong>Event1C:</strong> Monitoring @ planting</p>
-        <p class="highlight"><strong>Event2C:</strong> Monitoring + gapping @ 4 WAP</p>
-        <p class="highlight"><strong>Event3C:</strong> Fertilizer application 1 @ 2-6 WAP</p>
-        <p class="highlight"><strong>Event4C:</strong> Fertilizer application 2 @ 8-12 WAP</p>
-        <p class="highlight"><strong>Event5C:</strong> Monitoring @ 12 WAP</p>
-        <p class="highlight"><strong>Event6C:</strong> Monitoring @ 24 WAP</p>
-        <p class="highlight"><strong>Event7C:</strong> Monitoring @ 36 WAP</p>
-        <p class="highlight"><strong>Event8C:</strong> Cassava harvest</p>
-        <p class="highlight"><strong>Event1M:</strong> Monitoring at planting and fertilizer application</p>
-        <p class="highlight"><strong>Event2M:</strong> Fertilizer first split application at 20 to 25 DAS (~ 3 WAP)</p>
-        <p class="highlight"><strong>Event3M:</strong> Fertilizer second split application at 40 to 45 DAS (~ 6 WAP)</p>
-        <p class="highlight"><strong>Event4M:</strong> Monitoring at flowering stage</p>
-        <p class="highlight"><strong>Event5M:</strong> Harvest</p>
-        <p class="highlight"><strong>Event1R:</strong> Monitoring at planting</p>
-        <p class="highlight"><strong>Event2R:</strong> Fertilizer first application</p>
-        <p class="highlight"><strong>Event3R:</strong> Fertilizer second application</p>
-        <p class="highlight"><strong>Event4R:</strong> Fertilizer third application</p>
-        <p class="highlight"><strong>Event5R:</strong> Monitoring at heading stage</p>
-        <p class="highlight"><strong>Event6R:</strong> Harvest at maturity</p>
-        <p class="highlight"><strong>Event7R:</strong> Crop cut in the surrounding field</p>
+        <div class="section level1"><strong>Site Selection:</strong> When the household was registered by enumerator. Obtained from Register or Verify Household form.</div>
+        <div class="section level1"><strong>Event S:</strong> Soil sampling by EN jointly with researcher</div>
+        <div class="section level1"><strong>Event 0:</strong> Informed consent, location, treatments, land preparation</div>
+        <div class="section level1"><strong>Event 1:</strong> Monitoring at planting</div>
+        <div class="section level1"><strong>Event 2:</strong> Monitoring + gapping at 4 WAP</div>
+        <div class="section level1"><strong>Event 3:</strong> Fertilizer application 1 at 2-6 WAP</div>
+        <div class="section level1"><strong>Event 4:</strong> Fertilizer application 2 at 8-12 WAP</div>
+        <div class="section level1"><strong>Event 5:</strong> Monitoring at 12 WAP</div>
+        <div class="section level1"><strong>Event 6:</strong> Monitoring at 24 WAP</div>
+        <div class="section level1"><strong>Event 7:</strong> Monitoring at 36 WAP</div>
+        <div class="section level1"><strong>Event 8:</strong> Harvest</div>
+        <div class="section level1"><strong>Event1C:</strong> Monitoring @ planting</div>
+        <div class="section level1"><strong>Event2C:</strong> Monitoring + gapping @ 4 WAP</div>
+        <div class="section level1"><strong>Event3C:</strong> Fertilizer application 1 @ 2-6 WAP</div>
+        <div class="section level1"><strong>Event4C:</strong> Fertilizer application 2 @ 8-12 WAP</div>
+        <div class="section level1"><strong>Event5C:</strong> Monitoring @ 12 WAP</div>
+        <div class="section level1"><strong>Event6C:</strong> Monitoring @ 24 WAP</div>
+        <div class="section level1"><strong>Event7C:</strong> Monitoring @ 36 WAP</div>
+        <div class="section level1"><strong>Event8C:</strong> Cassava harvest</div>
+        <div class="section level1"><strong>Event1M:</strong> Monitoring at planting and fertilizer application</div>
+        <div class="section level1"><strong>Event2M:</strong> Fertilizer first split application at 20 to 25 DAS (~ 3 WAP)</div>
+        <div class="section level1"><strong>Event3M:</strong> Fertilizer second split application at 40 to 45 DAS (~ 6 WAP)</div>
+        <div class="section level1"><strong>Event4M:</strong> Monitoring at flowering stage</div>
+        <div class="section level1"><strong>Event5M:</strong> Harvest</div>
+        <div class="section level1"><strong>Event1R:</strong> Monitoring at planting</div>
+        <div class="section level1"><strong>Event2R:</strong> Fertilizer first application</div>
+        <div class="section level1"><strong>Event3R:</strong> Fertilizer second application</div>
+        <div class="section level1"><strong>Event4R:</strong> Fertilizer third application</div>
+        <div class="section level1"><strong>Event5R:</strong> Monitoring at heading stage</div>
+        <div class="section level1"><strong>Event6R:</strong> Harvest at maturity</div>
+        <div class="section level1"><strong>Event7R:</strong> Crop cut in the surrounding field</div>
     </div>
 </body>
 </html>

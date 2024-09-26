@@ -23,12 +23,12 @@
         }
 
         .container-fluid2 {
-            width: 98%;
-            margin: 20px auto;
+            /*max-width: 900px;  Constrain width for better readability */
+            margin: 0px auto; /* Centering the container */
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* White background for the main container */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         h2, h3, h4 {
@@ -56,10 +56,22 @@
             margin-bottom: 10px;
         }
 
-        .highlight {
-            background-color: #efecea;
-            border-left: 4px solid #452d22;
-            padding: 10px;
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Added transform */
+        }
+
+        .section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .section.level1 {
+            border-left: 6px solid #412a22;
         }
 
         .divider {
@@ -79,61 +91,61 @@
         <h2 class="center-text" >Key Terms</h2>
         <p>Below are the descriptions of key terms, events, and procedures used to track and evaluate data collection activities.</p>
         
-        <p class="highlight"><strong>Usecase:</strong> Usecase short name</p>
-        <p class="highlight"><strong>Form:</strong> ODK generated form used for the survey</p>
-        <p class="highlight"><strong>Country:</strong> National administrative level. Target geography of the specified project.</p>
-        <p class="highlight"><strong>Enumerator:</strong> Survey personnel charged with data collection</p>
-        <p class="highlight"><strong>Household:</strong> An agricultural household where at least one member is operating a holding or when the household head, reference person, or main income earner is economically active in agriculture.</p>
-        <p class="highlight"><strong>ENID:</strong> Enumerator identification number (Hover to get enumerator details).</p>
-        <p class="highlight"><strong>HHID:</strong> Household identification number.</p>
-        <p class="highlight"><strong>Complete:</strong> Submitted with correct information within the required time period.</p>
-        <p class="highlight"><strong>Missing Details:</strong> Missing information within the required time period.</p>
-        <p class="highlight"><strong>Overdue:</strong> Submission overdue with or without information submitted.</p>
-        <p class="highlight"><strong>Future Event:</strong> Future data collection event, due date not yet passed and information not yet submitted.</p>
-        <p class="highlight"><strong>Issues:</strong> Data issues that might arise from submissions</p>
-        <p class="highlight"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
-        <p class="highlight"><strong>Events:</strong> Various field events monitored (these can vary with usecase).</p>
+        <p class="section level1"><strong>Usecase:</strong> Usecase short name</p>
+        <p class="section level1"><strong>Form:</strong> ODK generated form used for the survey</p>
+        <p class="section level1"><strong>Country:</strong> National administrative level. Target geography of the specified project.</p>
+        <p class="section level1"><strong>Enumerator:</strong> Survey personnel charged with data collection</p>
+        <p class="section level1"><strong>Household:</strong> An agricultural household where at least one member is operating a holding or when the household head, reference person, or main income earner is economically active in agriculture.</p>
+        <p class="section level1"><strong>ENID:</strong> Enumerator identification number (Hover to get enumerator details).</p>
+        <p class="section level1"><strong>HHID:</strong> Household identification number.</p>
+        <p class="section level1"><strong>Complete:</strong> Submitted with correct information within the required time period.</p>
+        <p class="section level1"><strong>Missing Details:</strong> Missing information within the required time period.</p>
+        <p class="section level1"><strong>Overdue:</strong> Submission overdue with or without information submitted.</p>
+        <p class="section level1"><strong>Future Event:</strong> Future data collection event, due date not yet passed and information not yet submitted.</p>
+        <p class="section level1"><strong>Issues:</strong> Data issues that might arise from submissions</p>
+        <p class="section level1"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
+        <p class="section level1"><strong>Events:</strong> Various field events monitored (these can vary with usecase).</p>
 
         <div class="divider">
             <p class="center-text"><strong>Validation Stage Events</strong></p>
         </div>
 
-        <p class="highlight"><strong>Site Selection:</strong> When the household was registered by enumerator. Obtained from Register or Verify Household form.</p>
-        <p class="highlight"><strong>Event 1:</strong> Monitoring at planting and fertilization application</p>
-        <p class="highlight"><strong>Event 2:</strong> Monitoring + gapping at 4 WAP</p>
-        <p class="highlight"><strong>Event 3:</strong> Monitoring at 6 WAP</p>
-        <p class="highlight"><strong>Event 4:</strong> Monitoring at 10 WAP</p>
-        <p class="highlight"><strong>Event 5:</strong> Monitoring at 14 WAP</p>
-        <p class="highlight"><strong>Event 8a:</strong> Harvest blue plot - Actual farmer practices</p>
-        <p class="highlight"><strong>Event 8b:</strong> Harvest yellow plot -  standardized farmer practices</p>
-        <p class="highlight"><strong>Event 8c:</strong> Harvest green plot - MVP</p>
-        <p class="highlight"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
+        <p class="section level1"><strong>Site Selection:</strong> When the household was registered by enumerator. Obtained from Register or Verify Household form.</p>
+        <p class="section level1"><strong>Event 1:</strong> Monitoring at planting and fertilization application</p>
+        <p class="section level1"><strong>Event 2:</strong> Monitoring + gapping at 4 WAP</p>
+        <p class="section level1"><strong>Event 3:</strong> Monitoring at 6 WAP</p>
+        <p class="section level1"><strong>Event 4:</strong> Monitoring at 10 WAP</p>
+        <p class="section level1"><strong>Event 5:</strong> Monitoring at 14 WAP</p>
+        <p class="section level1"><strong>Event 8a:</strong> Harvest blue plot - Actual farmer practices</p>
+        <p class="section level1"><strong>Event 8b:</strong> Harvest yellow plot -  standardized farmer practices</p>
+        <p class="section level1"><strong>Event 8c:</strong> Harvest green plot - MVP</p>
+        <p class="section level1"><strong>Data Preview:</strong> Preview and download data as submitted via ODK forms by the enumerators</p>
 
         <div class="divider">
             <p class="center-text"><strong>On-Station (NOT) Trials Events</strong></p>
         </div>
 
-        <p class="highlight"><strong>Event 1:</strong> 	Site characterization</p>
-        <p class="highlight"><strong>Event 2:</strong> 	Daily rainfall month1 (here we want to record daily data, printed data recording sheets will be given to farmers then enumerators will collect and do data entry for the 30 to 31 days per month. So there should be 31 data spaces under each daily rainfall month)</p>
-        <p class="highlight"><strong>Event 3:</strong>  Daily rainfall month2 </p>
-        <p class="highlight"><strong>Event 4:</strong>  Daily rainfall month3 </p>
-        <p class="highlight"><strong>Event 5:</strong> 	Daily rainfall month4 </p>
-        <p class="highlight"><strong>Event 6:</strong> 	Soil properties</p>
-        <p class="highlight"><strong>Event 7:</strong>  Residue management and tillage</p>
-        <p class="highlight"><strong>Event 8:</strong>  Planting practice</p>
-        <p class="highlight"><strong>Event 9:</strong> 	Crop phenology</p>
-        <p class="highlight"><strong>Event 10:</strong> Crop growth parameters</p>
-        <p class="highlight"><strong>Event 11:</strong> Weed, pest and diseases management and monitoring1</p>
-        <p class="highlight"><strong>Event 12:</strong> Weed, pest and diseases management and monitoring 2</p>
-        <p class="highlight"><strong>Event 13:</strong> Weed, pest and diseases management and monitoring 3</p>
-        <p class="highlight"><strong>Event 14:</strong> Fertilizer and nutrient management</p>
-        <p class="highlight"><strong>Event 15:</strong> Maize harvesting</p>
-        <p class="highlight"><strong>Event 16:</strong> Maize post-harvest</p>
-        <p class="highlight"><strong>Event 17:</strong> Soybean harvesting</p>
-        <p class="highlight"><strong>Event 18:</strong> Soybean post-harvest</p>
-        <p class="highlight"><strong>Event 19:</strong> Nodule assessment wet</p>
-        <p class="highlight"><strong>Event 20:</strong> Nodule assessment dry</p>
-        <p class="highlight"><strong>Event 21:</strong> Production constraints</p>
+        <p class="section level1"><strong>Event 1:</strong> 	Site characterization</p>
+        <p class="section level1"><strong>Event 2:</strong> 	Daily rainfall month1 (here we want to record daily data, printed data recording sheets will be given to farmers then enumerators will collect and do data entry for the 30 to 31 days per month. So there should be 31 data spaces under each daily rainfall month)</p>
+        <p class="section level1"><strong>Event 3:</strong>  Daily rainfall month2 </p>
+        <p class="section level1"><strong>Event 4:</strong>  Daily rainfall month3 </p>
+        <p class="section level1"><strong>Event 5:</strong> 	Daily rainfall month4 </p>
+        <p class="section level1"><strong>Event 6:</strong> 	Soil properties</p>
+        <p class="section level1"><strong>Event 7:</strong>  Residue management and tillage</p>
+        <p class="section level1"><strong>Event 8:</strong>  Planting practice</p>
+        <p class="section level1"><strong>Event 9:</strong> 	Crop phenology</p>
+        <p class="section level1"><strong>Event 10:</strong> Crop growth parameters</p>
+        <p class="section level1"><strong>Event 11:</strong> Weed, pest and diseases management and monitoring1</p>
+        <p class="section level1"><strong>Event 12:</strong> Weed, pest and diseases management and monitoring 2</p>
+        <p class="section level1"><strong>Event 13:</strong> Weed, pest and diseases management and monitoring 3</p>
+        <p class="section level1"><strong>Event 14:</strong> Fertilizer and nutrient management</p>
+        <p class="section level1"><strong>Event 15:</strong> Maize harvesting</p>
+        <p class="section level1"><strong>Event 16:</strong> Maize post-harvest</p>
+        <p class="section level1"><strong>Event 17:</strong> Soybean harvesting</p>
+        <p class="section level1"><strong>Event 18:</strong> Soybean post-harvest</p>
+        <p class="section level1"><strong>Event 19:</strong> Nodule assessment wet</p>
+        <p class="section level1"><strong>Event 20:</strong> Nodule assessment dry</p>
+        <p class="section level1"><strong>Event 21:</strong> Production constraints</p>
     </div>
 </body>
 </html>
