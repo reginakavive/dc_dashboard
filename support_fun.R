@@ -1,4 +1,5 @@
-#load data(updated daily)
+#auth0 rmv
+# #load data(updated daily)
 usersdata <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "usecases_updated.csv"),
                           file = tempfile(fileext = ".csv")
 ) %>%
@@ -17,7 +18,7 @@ user_base <- dplyr::tibble(
   password = sapply(unique(passList), sodium::password_store),
   permissions = unique(permissionList)#,
 )
-
+#auth0 rmv
 
 #basemap for leaflet
 basemap <- leaflet() %>%
@@ -112,22 +113,25 @@ dropdownMenuCustom <-     function (..., type = c("messages", "notifications", "
 #   
 # }
 
-
-
-
-
-
 jscode <- "
-shinyjs.hrefAuto = function(url) { window.location.href = url;};
-"
-# Function to create a tab panel
-usecases.index<-c(  " SAA-Nigeria"  =1           , " DigGreen-Ethiopia"  =2  ," Fert-Ethiopia"     =3    , " SNS-Rwanda"  =4  ,  " ATAFI/MOVE"    =5      , " ex-Wcover-Ghana" =6     ,
-                    " Planting-S-Asia" =7     ," DSRC-SE-Asia" =8       ,   " Govt-Egypt"     =9    ," Govt-LatAm"  =10     ,   " Cocoa Soils"  =11   ,   " Rainforest Alliance" =12  ,
-                    " One Acre Fund"    =13     ,  " DRC Coffee OLAM"  =14       ,   " Solidaridad Soy Advisory" =15 , " DSR Extension Vietnam" =16  , " Morocco CA" =17          ,  " Mercy Corps SPROUT"  =18,
-                    " BAYGAP (BAYER)" =19, " KALRO" =20, " DEMO" =21 )
+shinyjs.hrefAuto = function(url) { window.location.href = url;};"
+
+#auth0 put
+# usecases.index<-c("ATAFI-MOVE" =1 , "BAYGAP-(BAYER)" =2 ,  "Cocoa-Soils" = 3  , "DEMO"  =21   , "DRC-Coffee-OLAM" =5 ,
+#                   "DSR-Extension-Vietnam"=6 ,   "DSRC-SE-ASIA" =7  ,"DigGreen-ETHIOPIA" =8 , "Fert-Ethiopia" =9 ,"Govt-Egypt"   =10 ,
+#                   "Govt-LatAm"=11 , "KALRO"  =20,  "Mercy-Corps-SPROUT" = 18  ,    "Morocco-CA" =14     , "One-Acre-Fund"  =12   ,
+#                   "Planting-S-Asia"  =16  ,      "Rainforest-Alliance" =17  ,   "SAA-NIGERIA"   =13    ,  "SNS-RWANDA" =4 ,
+#                   "Solidaridad-Soy-Advisory"=15,  "ex-Wcover-Ghana"  =19)
+#auth0 put
+
+# Function to create a tab panel  #auth0 rmv
+usecases.index<-c(  " SAA-Nigeria"  =1           , " DigGreen-Ethiopia"  =2  ," Fert-Ethiopia"     =3    , " SNS-Rwanda"  =4  ,  " ATAFI/MOVE"    =5      , " GH-CerLeg-Esoko" =19     ,
+                   " Planting-S-Asia" =7     ," DSRC-SE-Asia" =8       ,   " Govt-Egypt"     =9    ," Govt-LatAm"  =10     ,   " Cocoa Soils"  =11   ,   " Rainforest Alliance" =12  ,
+                   " One Acre Fund"    =13     ,  " DRC Coffee OLAM"  =14       ,   " Solidaridad Soy Advisory" =15 , " DSR Extension Vietnam" =16  , " Morocco CA" =17          ,  " Mercy Corps SPROUT"  =18,
+                   " BAYGAP (BAYER)" =6, " KALRO" =20, " DEMO" =21, " ex-Wcover-Ghana" = 22 )
 
 #usecases.index<-c(  " SNS-Rwanda"  =4  ,   " Solidaridad Soy Advisory" =15 ," KALRO" =20  )
-
+#auth0 rmv
 
 
 create_tab_panel <- function(tab_name) {
@@ -136,7 +140,13 @@ create_tab_panel <- function(tab_name) {
  
   tabPanel(tab_name,
            dashboardPage(
-             dashboardHeader(),
+             dashboardHeader(
+               tags$li(
+                 class = "dropdown",
+                 auth0::logoutButton()  # Add logout button to header
+
+               )
+             ),
              dashboardSidebar(
                width = 200,
                useShinyjs(),
@@ -180,44 +190,57 @@ create_tab_panel <- function(tab_name) {
                          # HTML('<h3>  Welcome! </h3>'),
                           #textOutput("selected_var"),
                           #HTML('<h5>  This data monitoring dashboards helps you track enumerator submissions for various trials.</h5>'),
-                          HTML('<br>'),
-                          fluidRow( column( width = 12,  align = 'left', infoBoxOutput(  paste0("project_",uc) ) , infoBoxOutput(paste0("country_",uc) ),infoBoxOutput(paste0("Totsub_box_",uc) ))
+                         div(class = "section levell", 
+                             HTML('<br>'),
+                             fluidRow( column( width = 12,  align = 'left', infoBoxOutput(  paste0("project_",uc) ) , infoBoxOutput(paste0("country_",uc) ),infoBoxOutput(paste0("Totsub_box_",uc) ))
                                     #column( width = 6,  align = 'right', uiOutput("Totsub_box"))trials_map submission_trend
+                          )
                           ),
                          #fluidRow( column( width = 12,  align = 'left', infoBoxOutput(  paste0("summaryevents_",uc) ) )),
+                         div(class = "section levell", 
                           fluidRow( column( width = 6,h4("Trials by Location", align = 'center'), leafletOutput(paste0('trials_map_',uc),height = "50vh"),style = "background-color: #f2f2f2;"),
                                     column( width = 6,h4("Trend of Submissions", align = 'center'), plotlyOutput(paste0('submission_trend_',uc), height = "50vh"),style = "background-color: #f2f2f2;")
-                          ),
+                          )),
                           HTML('<br>'),
+                         div(class = "section levell", 
                          fluidRow(
                            h4("Summary of Complete Submissions", align = 'center'),
                            div(style = "text-align: right;",  # Inline CSS for alignment
                                downloadButton(paste0("downloadsummary_", uc), "Download Summary")
                            ),
+                           HTML('<br>')
                          ),
-                         fluidRow( column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("rankingevents_", uc)) )
-                         ),
-                        
-                          fluidRow( column( width = 12,h4("", align = 'center'), reactableOutput(paste0("ranking_",uc)) )
-                          )
-                          )
+                         
+                         fluidRow(class = "section level1",  column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("rankingevents_", uc)) )
+                                  ),
+                         fluidRow(class = "section level1",  column( width = 12,h4("", align = 'center'), reactableOutput(paste0("ranking_",uc)) )
+                                  )
+                         )
+                         )
+                          
                          
                  ),
 
                  tabPanel(tabName="Enumerators","ENUMERATORS",
                           div(class = "container-fluid2", 
-                          HTML('<br>'),
-                          HTML('<span  style="background-color: #55b047 ;align:right;" class="dot">Complete</span>&nbsp; <span  style="background-color: #fdb415 ;align:right;" class="dot">Missing Details</span>&nbsp;<span  style="background-color: #c3531f;align:right;" class="dot">Overdue</span>  &nbsp;<span  style="background-color: #BE93D4;align:left;" class="dot">Future Event</span>'),
-                          HTML('<br>'),
-                          reactableOutput(paste0("tableR_",uc))
+                               
+                              HTML('<br>'),
+                              HTML('<span  style="background-color: #55b047 ;align:right;" class="dot">Complete</span>&nbsp; <span  style="background-color: #fdb415 ;align:right;" class="dot">Missing Details</span>&nbsp;<span  style="background-color: #c3531f;align:right;" class="dot">Overdue</span>  &nbsp;<span  style="background-color: #BE93D4;align:left;" class="dot">Future Event</span>'),
+                              HTML('<br>'),
+                              div(class = "section levell",
+                                  reactableOutput(paste0("tableR_",uc))
+                              )
                           )
                  ),
 
                  tabPanel(tabName="issues" ,"ISSUES",
                           div(class = "container-fluid2", 
-                          HTML('<h5> The following list comprises all enumerator IDs (ENID) and Household IDs (HHID) that have been flagged as odd.</h5>'),
-                          fluidRow( column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("issues_", uc)) )
-                          )
+                              HTML('<h5> The list below includes all enumerator IDs (ENID), household IDs (HHID), and data collection events that require review due to being flagged as unusual.</h5>'),
+                              
+                              div(class = "section levell", 
+                                  fluidRow( column( width = 12,h4("", align = 'center'),  reactableOutput(paste0("issues_", uc)) )
+                                  )
+                              )
                           )
                           #reactableOutput("tableQ1")
                  ),
@@ -226,12 +249,15 @@ create_tab_panel <- function(tab_name) {
                        
                         
                                  div( class = "container-fluid2", 
-                                       div(style = "text-align: right;",  # Inline CSS for alignment
+                                      
+                                      div(style = "text-align: right;",  # Inline CSS for alignment
                                            downloadButton(paste0("downloadData_", uc), "Download CSV")
                                        ),
                                 
                                       HTML('<br>'),
-                                      dataTableOutput(paste0('tabledownload_',uc)),style = "height:75vh; overflow-y: scroll;overflow-x: scroll;"
+                                      div(class = "section level1",
+                                          dataTableOutput(paste0('tabledownload_',uc)),style = "height:75vh; overflow-y: scroll;overflow-x: scroll;"
+                                      )
                                    )
                                  
                           
@@ -240,11 +266,16 @@ create_tab_panel <- function(tab_name) {
                           
                  ),
                  tabPanel(tabName="glossary" ,"GLOSSARY",
-                          includeHTML(paste0('./www/Glossary/glossary_',uc,'.html'))
+                          suppressWarnings(
+                            includeHTML(paste0('./www/Glossary/glossary_',uc,'.html'))
+                            )
                  ),
                  tabPanel(tabName="howto" ,"GUIDE",
-                          includeHTML('./www/Guide/HowTo.html')
-                 ),
+                          suppressWarnings(
+                            includeHTML('./www/Guide/HowTo.html')
+                            )
+                 )
+                
 
                )
 
@@ -258,6 +289,7 @@ create_tab_panel <- function(tab_name) {
 # Function to create navbarMenu with tabPanel elements
 create_navbarMenu <- function(tab_names) {
   # Create a list of tab panels using lapply
+  
   tab_panels <- lapply(tab_names, create_tab_panel)
   
   # Use do.call to create the navbarMenu with the list of tab panels
