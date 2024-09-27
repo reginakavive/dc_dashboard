@@ -5,7 +5,7 @@
 #####This Script runs daily to  update and aggregate data collected
 
 #print(wd)
-#################################################################################################################
+
 ##source + downloaded files from ona.io
 source('okapi.R')
 # Load required libraries
@@ -25,7 +25,7 @@ if(!'aws.s3' %in% installed.packages()[, 'Package']) {install.packages('aws.s3',
 suppressMessages(suppressWarnings(library("aws.s3",character.only = TRUE)))
 
 
-#################################################################################################################
+
 #ID DATA (Enumerators and households)
 #merge enum +household registration data
 Register_EN.Ids <- Register_EN%>%
@@ -71,14 +71,13 @@ EN.HH_data <- Register_EN.Ids %>%
 
 
 
-#################################################################################################################
 #Validation data
 
 data<-valTest #from ona api download (okapi2.R)
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #data cleaning
-#------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------
 #remove ystem variables
 system_var<- c("_tags","_uuid","_notes" ,"_edited","_status" ,"_version","_duration" ,"_xform_id",
                "_attachments","_geolocation","_media_count","_total_media","formhub/uuid",
@@ -740,7 +739,7 @@ unlink(temp_file)
 
 
 ##########################################################################################
-##########################MercyCorpsSprot###########################################################
+##########################MercyCorpsSprot#################################################
 ##########################################################################################
 
 #ID DATA (Enumerators and households)
@@ -864,9 +863,9 @@ unlink(temp_file)
 
 
 
-##########################################################################################
-##########################EiA_Demo_Validation#############################################
-##########################################################################################
+# ##########################################################################################
+# ##########################EiA_Demo_Validation#############################################
+# ##########################################################################################
 
 #ID DATA (Enumerators and households)
 #merge enum +household registration data
@@ -898,7 +897,7 @@ DEMO.HHReg<-DEMO.RegisterVerify_HH%>%
          HHSurname = `detailsHH/surNameHH`,
          HHID=HHID,
          HHphoneNo=`detailsHH/phoneNrHH`
-         
+
   )%>%
   mutate(`Site Selection` = as.Date(`Site Selection`)) %>%
   filter(!is.na(HHID)) %>%  # Filter out rows where HHID is NA
@@ -914,26 +913,29 @@ DEMO.ENHHReg <- DEMO.ENReg %>%
 extract_coordinates <- function(point) {
   # Split the string by "."
   parts <- strsplit(point, "\\.")[[1]]
-  
-  # Extract latitude: first part and second part minus last digit of the second part
+
   latitude_part1 <- parts[1]
   latitude_part2 <- substr(parts[2], 1, nchar(parts[2]) - 1)
   latitude <- paste(latitude_part1, latitude_part2, sep = ".")
-  
+
   # Extract longitude: last digit of the second part + third part
   last_digit_second_part <- substr(parts[2], nchar(parts[2]), nchar(parts[2]))
   longitude <- paste(last_digit_second_part, parts[3], sep = ".")
-  
+
+  longitude <- sub(" .*", "", longitude)
+
   return(c(latitude = latitude, longitude = longitude))
 }
 
-# Apply the function to the 'geopoint' column and convert to a data frame
+
+# # Apply the function to the 'geopoint' column and convert to a data frame
 extracted_data <- t(sapply(DEMO.valData$geopoint, extract_coordinates))
 extracted_df <- as.data.frame(extracted_data, stringsAsFactors = FALSE)
 colnames(extracted_df) <- c("Latitude", "Longitude")
 
 # Combine the existing dataframe with the new latitude and longitude columns
 DEMO.valData2 <- cbind(DEMO.valData, extracted_df)
+
 
 
 # Define the bounds for Nigeria
@@ -948,6 +950,7 @@ DEMO.valData3 <- DEMO.valData2 %>%
   mutate(Longitude = as.numeric(Longitude))%>%
   filter(Latitude >= as.numeric(lat_min) & Latitude <= as.numeric(lat_max) &
            Longitude >= as.numeric(long_min) & Longitude <= as.numeric(long_max))%>%
+  mutate(country = ifelse(country == "ZZ", "NG", country)) %>%
   suppressWarnings()
 
 
@@ -1025,4 +1028,205 @@ write.csv(DEMO.SUM_data, temp_file, row.names = FALSE)
 aws.s3::put_object(file = temp_file,
                    bucket = "rtbglr",
                    object = paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "DEMOSUMdata.csv"))
+unlink(temp_file)
+
+
+
+
+##########################################################################################
+##########################GH-CerLeg-Esoko#################################################
+##########################################################################################
+
+#ID DATA (Enumerators and households)
+#merge enum +household registration data
+CE.ENReg <- CE.Register_EN%>%
+  rename(
+    ENID = `register_enumerator/purpose/enumerator_id`,
+    ENSurname = `register_enumerator/purpose/surname`,
+    ENphoneNo = `register_enumerator/purpose/phone_number`,
+    ENfirstName= `register_enumerator/purpose/first_name`,
+    ENtoday = `register_enumerator/today`
+  ) %>%
+  select(any_of(c("ENtoday","ENID","ENfirstName","ENSurname","ENphoneNo"))) %>%
+  arrange(ENID, desc(ENtoday)) %>% #sort to Keep last entry by date in duplicated records
+  distinct(ENID, .keep_all = TRUE)# Keep last entry by date in duplicated records
+
+CE.HHReg<-CE.RegisterVerify_HH%>%
+  select(any_of(c( "register_hh/today"
+                   ,"register_hh/country_ID"
+                   ,"register_hh/enumerator_ID"
+                   ,"register_hh/new_barcode/surname"
+                   ,"register_hh/new_barcode/first_name"
+                   ,"register_hh/new_barcode/household_id"
+                   ,"register_hh/new_barcode/phone_number"
+  )))%>%
+  rename(`Site Selection` =`register_hh/today`,
+         Country = `register_hh/country_ID`,
+         ENID=`register_hh/enumerator_ID`,
+         HHfirstName=`register_hh/new_barcode/first_name`,
+         HHSurname = `register_hh/new_barcode/surname`,
+         HHID=`register_hh/new_barcode/household_id`,
+         HHphoneNo=`register_hh/new_barcode/phone_number`
+         
+  )%>%
+  mutate(`Site Selection` = as.Date(`Site Selection`)) %>%
+  filter(!is.na(HHID)) %>%  # Filter out rows where HHID is NA
+  distinct(ENID,HHID,Country,`Site Selection`,HHphoneNo, .keep_all = TRUE)
+
+
+CE.ENHHReg <- CE.ENReg %>%
+  full_join(CE.HHReg, by = "ENID") %>%
+  suppressWarnings()
+
+
+
+#Validation/fertilizer data
+CE.val1<-CE.valData%>%
+
+  as.data.frame()%>%
+  select(-any_of(c( "_notes" , "_total_media", "_id", "_tags", "_uuid" ,"start", "_edited","_status" ,"_version" , "_duration"  ,"_xform_id" ,"_attachments", "_geolocation" ,"_media_count" ,"formhub/uuid"   ,
+                    "_submitted_by","consent/photo","_date_modified","meta/instanceID"  ,"_submission_time", "_xform_id_string" ,"_bamboo_dataset_id"  ,
+                    "_media_all_received"  ,  "consent/read_consent_form"    ,"consent/copy",  "consent/give_consent")))%>%
+  rename(
+    Country = `group_location/country`,
+    Event= `group/event`,
+    latitude= `group_location/latitude`,
+    longitude= `group_location/longitude`,
+    today = today
+  ) %>%
+  mutate(
+    today = as.IDate(today),
+    ENID = coalesce(`group/enumerator_id_1`, `group/enumerator_id`),
+    HHID = coalesce(`group/household_id_1`, `group/household_id`)
+  )%>%
+  arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
+  distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
+  mutate(Stage = "Validation") %>%
+  mutate(Trial = "Validation") %>%
+  mutate(Country = capitalize(Country))
+
+
+
+CE.val2 <- CE.val1 %>%
+  dplyr::select(any_of(c("today", "Event", "ENID", "HHID"))) %>%
+  arrange(Event) %>%
+  pivot_wider(names_from = Event, values_from = today, values_fn = last) %>%
+  mutate(across(starts_with("event"), as.Date, format = "%Y-%m-%d")) %>%
+  arrange( ENID, HHID)%>%
+  suppressWarnings()
+
+
+#join to include all EN details... some not in the hh details.
+
+CE.ENHHReg2<-CE.ENHHReg %>%
+  dplyr::select(-any_of(c("Country", "ENtoday", "ENfirstName","ENSurname","ENphoneNo" )))
+
+
+
+#get hh details
+CE.SUM_data <- CE.val2 %>%
+  full_join(CE.ENHHReg2, by = c("ENID","HHID")) %>% #join identifiers and val data while keeping all enumerators/households
+  left_join(CE.ENReg, by = "ENID")  %>%
+  arrange(ENID,HHID, desc(`Site Selection`)) %>%
+  distinct(ENID,HHID, .keep_all = TRUE) %>%
+  filter(!(duplicated(ENID) & is.na(HHID))) %>% # remove rows where ENID is not unique and HHID is NA
+  mutate(Stage = "Validation") %>%
+  mutate(Trial = "Validation") %>%
+  suppressWarnings()
+
+CE.val1 <- lapply(CE.val1, function(x) {
+  if (is.list(x)) {
+    sapply(x, paste, collapse = ',')
+  } else {
+    x
+  }
+})
+
+CE.val1 <- as.data.frame(CE.val1)
+
+
+
+#intercropping data
+CE.IC1<-CE.ICData %>%
+  
+  as.data.frame()%>%
+  select(-any_of(c( "_notes" , "_total_media", "_id", "_tags", "_uuid" ,"start", "_edited","_status" ,"_version" , "_duration"  ,"_xform_id" ,"_attachments", "_geolocation" ,"_media_count" ,"formhub/uuid"   ,
+                    "_submitted_by","consent/photo","_date_modified","meta/instanceID"  ,"_submission_time", "_xform_id_string" ,"_bamboo_dataset_id"  ,
+                    "_media_all_received"  ,  "consent/read_consent_form"    ,"consent/copy",  "consent/give_consent")))%>%
+  rename(
+    ENID = `group/enumerator_id`,
+    Country = `group_location/country`,
+    Event= `group/event`,
+    latitude= `group_location/latitude`,
+    longitude= `group_location/longitude`,
+    today = today
+  ) %>%
+  mutate(
+    today = as.IDate(today),
+    #ENID = coalesce(`group/enumerator_id_1`, `group/enumerator_id`),
+    HHID = coalesce(`group/household_id_1`, `group/household_id`)
+  )%>%
+  arrange(ENID,HHID, desc(today)) %>% #sort to Keep last entry by date in duplicated records
+  distinct(ENID,HHID,Event, .keep_all = TRUE)  %>%
+  mutate(Stage = "NOT Trials") %>%
+  mutate(Trial = "Intercropping") %>%
+  mutate(Country = capitalize(Country))
+
+
+CE.IC2 <- CE.IC1 %>%
+  dplyr::select(any_of(c("today", "Event", "ENID", "HHID"))) %>%
+  arrange(Event) %>%
+  pivot_wider(names_from = Event, values_from = today, values_fn = last) %>%
+  mutate(across(starts_with("event"), as.Date, format = "%Y-%m-%d")) %>%
+  arrange( ENID, HHID)%>%
+  suppressWarnings()
+
+
+#get hh details
+CE.ICSUM_data <- CE.IC2 %>%
+  full_join(CE.ENHHReg2, by = c("ENID","HHID")) %>% #join identifiers and val data while keeping all enumerators/households
+  left_join(CE.ENReg, by = "ENID")  %>%
+  arrange(ENID,HHID, desc(`Site Selection`)) %>%
+  distinct(ENID,HHID, .keep_all = TRUE) %>%
+  filter(!(duplicated(ENID) & is.na(HHID))) %>% # remove rows where ENID is not unique and HHID is NA
+  mutate(Stage = "NOT Trials") %>%
+  mutate(Trial = "Intercropping") %>%
+  suppressWarnings()
+
+CE.IC1 <- lapply(CE.IC1, function(x) {
+  if (is.list(x)) {
+    sapply(x, paste, collapse = ',')
+  } else {
+    x
+  }
+})
+
+CE.IC1 <- as.data.frame(CE.IC1)
+
+temp_file <- tempfile()
+write.csv(CE.val1, temp_file, row.names = FALSE)
+aws.s3::put_object(file = temp_file,
+                   bucket = "rtbglr",
+                   object = paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CEOdata.csv"))
+unlink(temp_file)
+
+temp_file <- tempfile()
+write.csv(CE.SUM_data, temp_file, row.names = FALSE)
+aws.s3::put_object(file = temp_file,
+                   bucket = "rtbglr",
+                   object = paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CESUMdata.csv"))
+unlink(temp_file)
+
+temp_file <- tempfile()
+write.csv(CE.IC1, temp_file, row.names = FALSE)
+aws.s3::put_object(file = temp_file,
+                   bucket = "rtbglr",
+                   object = paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CEICOdata.csv"))
+unlink(temp_file)
+
+temp_file <- tempfile()
+write.csv(CE.ICSUM_data, temp_file, row.names = FALSE)
+aws.s3::put_object(file = temp_file,
+                   bucket = "rtbglr",
+                   object = paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CEICSUMdata.csv"))
 unlink(temp_file)

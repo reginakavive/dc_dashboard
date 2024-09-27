@@ -75,3 +75,12 @@ MC.RegisterVerify_HH<-ona_data_get(base_url = "https://api.ona.io", auth_mode = 
 MC.valData<-ona_data_get(base_url = "https://api.ona.io", auth_mode =  "token",form_id =808517 )
 
 
+##########################################################################################
+##########################GH-CerLeg-Esoko#################################################
+##########################################################################################
+
+# Define the ONA base URL, token and form ID
+CE.Register_EN<-ona_data_get(base_url = "https://api.ona.io", auth_mode =  "token",form_id = 802688)
+CE.RegisterVerify_HH<-ona_data_get(base_url = "https://api.ona.io", auth_mode =  "token",form_id = 804928)
+CE.valData<-ona_data_get(base_url = "https://api.ona.io", auth_mode =  "token",form_id =804068 )
+CE.ICData<-ona_data_get(base_url = "https://api.ona.io", auth_mode =  "token",form_id =803455 )

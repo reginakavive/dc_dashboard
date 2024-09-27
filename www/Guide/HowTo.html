@@ -5,54 +5,57 @@
     <meta name="generator" content="pandoc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Data Collection Monitoring Tool Guide</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #f5f5f5; /* Original background color */
+            color: #333; /* Original text color */
         }
+
         .container-fluid {
             width: 100%;
             margin: 0 auto;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            padding: 10px;
         }
 
-
         .container-fluid2 {
-            width: 100%;
-            margin: 0 auto;
+            /*max-width: 900px;  Constrain width for better readability */
+            margin: 0px auto; /* Centering the container */
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* White background for the main container */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         h2, h3, h4 {
-            color: #412a22;
+            color: #412a22; /* Original heading color */
         }
 
         h2 {
-            border-bottom: 2px solid #412a22;
-            padding-bottom: 10px;
+            border-bottom: 3px solid #412a22; /* Original border color */
+            padding-bottom: 15px;
             margin-bottom: 20px;
+            font-size: 2em;
         }
 
         h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
         }
 
         h4 {
-            margin-top: 15px;
-            margin-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         p {
-            line-height: 1.6;
+            line-height: 1.8;
+            margin-bottom: 15px; /* Consistent spacing */
         }
 
         ul {
@@ -66,22 +69,27 @@
 
         .section {
             margin-bottom: 30px;
+            padding: 20px; /* More padding for sections */
+            background-color: #f8f9fa; /* Light background for sections */
+            border: 1px solid #dee2e6; /* Border around each section */
+            border-radius: 10px; /* Rounded corners */
+            transition: box-shadow 0.3s ease; /* Smooth shadow transition */
+        }
+
+        .section:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow on hover */
         }
 
         .section.level1 {
-            border-left: 4px solid #412a22;
-            padding-left: 20px;
-            margin-bottom: 20px;
+            border-left: 6px solid #412a22; /* Original left border color */
         }
 
         .section.level3 {
-            padding-left: 20px;
-            border-left: 2px solid #ddd;
+            border-left: 4px solid #412a22; /* Same color for secondary sections */
         }
 
         .section.level4 {
-            padding-left: 20px;
-            border-left: 1px solid #ddd;
+            border-left: 2px solid #ddd; /* Light gray for tertiary sections */
         }
 
         .highlight-green {
@@ -103,6 +111,7 @@
             color: purple;
             font-weight: bold;
         }
+
         .center-text {
             text-align: center;
         }
@@ -111,7 +120,7 @@
 <body>
     <div class="container-fluid2">
         <div id="dcmt" class="section level1">
-            <h2 class="center-text" >Data Collection Monitoring Tool Guide</h2>
+            <h2 class="center-text">Data Collection Monitoring Tool Guide</h2>
             <p>This tool helps users monitor trials for their Minimum Viable Products (MVPs). It guides users through a series of steps to crosscheck submissions and track progress in near real-time. Additionally, it facilitates seamless communication with relevant extension agents in the field.</p>
         </div>
 
@@ -155,6 +164,7 @@
                 <li class="highlight-orange">Orange: The submission is missing but is still within the allowed submission period.</li>
                 <li class="highlight-red">Red: The submission is overdue and has exceeded the required period for completion.</li>
                 <li class="highlight-purple">Purple: The event is scheduled for the future, and the submission period has not yet begun.</li>
+                <li >White: If submission for other events was completed but Event 1 (usually planting) is not yet submitted.</li>
             </ul>
         </div>
 
