@@ -73,10 +73,10 @@ ui <-
     #div( shinyauthr::logoutUI(id = "logout")),
     # auth0::logoutButton(id = "logout"),
     # login section ##toremove 
-    shinyauthr::loginUI(id = "login"), #auth0 rmv
+    #shinyauthr::loginUI(id = "login"), #auth0 rmv
     
     # to ensure display only after login
-    #uiOutput("conditionalBox"), #auth0 put
+    uiOutput("conditionalBox"), #auth0 put
     
     uiOutput("sidebarpanel", padding = 0) 
     
@@ -98,20 +98,20 @@ server <- function(input, output, session) {
   #getwd()
   #shinyjs::extendShinyjs()
   #auth0 rmv
-  credentials <- shinyauthr::loginServer(
-    id = "login",
-    data = user_base,
-    user_col = user,
-    pwd_col = password,
-    sodium_hashed = TRUE,
-    cookie_getter = TRUE,
-    log_out = reactive(logout_init())
-  )##toremove
-
-  logout_init <- shinyauthr::logoutServer(
-    id = "logout",
-    active = reactive(credentials()$user_auth)%>%
-      bindCache(credentials()$user_auth))
+  # credentials <- shinyauthr::loginServer(
+  #   id = "login",
+  #   data = user_base,
+  #   user_col = user,
+  #   pwd_col = password,
+  #   sodium_hashed = TRUE,
+  #   cookie_getter = TRUE,
+  #   log_out = reactive(logout_init())
+  # )##toremove
+  # 
+  # logout_init <- shinyauthr::logoutServer(
+  #   id = "logout",
+  #   active = reactive(credentials()$user_auth)%>%
+  #     bindCache(credentials()$user_auth))
   #auth0 rmv
   
   
@@ -126,30 +126,34 @@ server <- function(input, output, session) {
   ")
   
   #auth0 put
-  # user_use_case_data <- names(session$userData$auth0_info$eia_apps)
-  # # Reorder to start with "DEMO" to avoid empty acc display
-  # if ("DEMO" %in% user_use_case_data) {
-  #   user_use_case_data <- c("DEMO", user_use_case_data[user_use_case_data != "DEMO"])
-  # }
-  # 
-  # # IF USER NOT ASSOCIATED WITH ANY USECASE DATA... Show demo or warning?
-  # 
-  # # Render the warning based on user_use_case_data
-  # output$conditionalBox <- renderUI({
-  #   if (is.null(user_use_case_data) || length(user_use_case_data) == 0) {
-  #     tags$div(
-  #       style = "display: flex; justify-content: center; align-items: center; height: 100vh;",
-  #       tags$div(
-  #         class = "alert alert-warning",
-  #         style = "background-color: #fdb415; color: #000; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);",
-  #         tags$strong(icon("exclamation-triangle"), " Warning!"),  # Font Awesome icon
-  #         tags$p(" No usecase data is available for this user. For further inquiries, please contact Eduardo Garcia (IITA) at email: e.bendito@cgiar.org.", style = "margin: 10px 0;")
-  #       )
-  #     )
-  #   } else {
-  #     NULL  # No warning to display
-  #   }
-  # })
+  user_use_case_data <- names(session$userData$auth0_info$eia_apps)
+  # Reorder to start with "DEMO" to avoid empty acc display
+  if ("DEMO" %in% user_use_case_data) {
+    user_use_case_data <- c("DEMO", user_use_case_data[user_use_case_data != "DEMO"])
+  }
+  #auth0 RMV DPL
+  if ("ex-Wcover-Ghana" %in% user_use_case_data) {
+    user_use_case_data[user_use_case_data == "ex-Wcover-Ghana"] <- "GH-CerLeg-Esoko"
+  }
+
+  # IF USER NOT ASSOCIATED WITH ANY USECASE DATA... Show demo or warning?
+
+  # Render the warning based on user_use_case_data
+  output$conditionalBox <- renderUI({
+    if (is.null(user_use_case_data) || length(user_use_case_data) == 0) {
+      tags$div(
+        style = "display: flex; justify-content: center; align-items: center; height: 100vh;",
+        tags$div(
+          class = "alert alert-warning",
+          style = "background-color: #fdb415; color: #000; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);",
+          tags$strong(icon("exclamation-triangle"), " Warning!"),  # Font Awesome icon
+          tags$p(" No usecase data is available for this user. For further inquiries, please contact Eduardo Garcia (IITA) at email: e.bendito@cgiar.org.", style = "margin: 10px 0;")
+        )
+      )
+    } else {
+      NULL  # No warning to display
+    }
+  })
   #auth0 put
     
   
@@ -163,13 +167,16 @@ server <- function(input, output, session) {
   
   output$sidebarpanel <- renderUI({
     # Show only when authenticated
-    req(credentials()$user_auth)  ##toremove #auth0 rmv
+    # req(credentials()$user_auth)  ##toremove #auth0 rmv
+    # 
+    # 
+    # user_use_case_data <- (dplyr::filter(usersdata, grepl((credentials()$info)$user,usersdata$users)))$shortName  #auth0 rmv
+    # if (" DEMO" %in% user_use_case_data) {
+    #   user_use_case_data <- c(" DEMO", user_use_case_data[user_use_case_data != " DEMO"])
+    # }
     
-
-    user_use_case_data <- (dplyr::filter(usersdata, grepl((credentials()$info)$user,usersdata$users)))$shortName  #auth0 rmv
-    if (" DEMO" %in% user_use_case_data) {
-      user_use_case_data <- c(" DEMO", user_use_case_data[user_use_case_data != " DEMO"])
-    }
+    active_use_case_list <- c("DEMO","Mercy-Corps-SPROUT","Solidaridad-Soy-Advisory","GH-CerLeg-Esoko" ,"ex-Wcover-Ghana","KALRO","SNS-RWANDA")
+    user_use_case_data <- user_use_case_data[sapply(user_use_case_data, function(x) x %in% active_use_case_list)]
     
     ## 1. Header ------------------------------
     navbarPage(theme = shinytheme("flatly"), 
@@ -212,10 +219,10 @@ server <- function(input, output, session) {
     shinyjs::toggleState("dashboard") # Re-enable the menu item after animation
   })
   
-  # observeEvent(input$logout, {
-  #   #session$reload() ##toremove
-  #   auth0::logoutButton()
-  # })
+  observeEvent(input$logout, {
+    #session$reload() ##toremove
+    auth0::logoutButton()
+  })
   
   
   
@@ -224,7 +231,7 @@ server <- function(input, output, session) {
   ##Define data for each usecase   #auth0 put names
   observeEvent(input$nav,{
     tryCatch( 
-      if (input$nav== " SNS-Rwanda"){
+      if (input$nav== "SNS-RWANDA"){
         
         RWA.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "SNSRwandaOdata.csv"),
                                   file = tempfile(fileext = ".csv")
@@ -251,7 +258,7 @@ server <- function(input, output, session) {
         patternissuesE<-"^RSHHRW"
         
         
-      }else if (input$nav== " Solidaridad Soy Advisory"){
+      }else if (input$nav== "Solidaridad-Soy-Advisory"){
         #glossary<-'Solidaridadglossary.html'
         SOL.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "SolidaridadOdata.csv"),
                                   file = tempfile(fileext = ".csv")
@@ -276,7 +283,7 @@ server <- function(input, output, session) {
                                "Site Selection", "event1", "event2", "event3", "event4", "event5", "event6","event7", "event8a", "event8b","event8c")
         
         
-      }else if (input$nav== " KALRO"){
+      }else if (input$nav== "KALRO"){
         KL.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "KLOdata.csv"),
                                   file = tempfile(fileext = ".csv")
         ) %>%
@@ -296,7 +303,7 @@ server <- function(input, output, session) {
         
         
         
-      }else if (input$nav== " Mercy Corps SPROUT"){
+      }else if (input$nav== "Mercy-Corps-SPROUT"){
         MC.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "MCOdata.csv"),
                                  file = tempfile(fileext = ".csv")
         ) %>%
@@ -314,7 +321,7 @@ server <- function(input, output, session) {
         columns_to_append <- c("ENID", "HHID", "Trial",#"treat",
                                "Site Selection", "event1", "event2", "event3", "event4", "event5", "event6", "event7")
         
-      }else if (input$nav== " GH-CerLeg-Esoko"){
+      }else if (input$nav== "GH-CerLeg-Esoko"){
         CE.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CEOdata.csv"),
                                  file = tempfile(fileext = ".csv")
         ) %>%
@@ -341,7 +348,7 @@ server <- function(input, output, session) {
         columns_to_append <- c("ENID", "HHID", "Trial",#"treat",
                                "Site Selection", "event1", "event2", "event5", "event6", "event7", "event8", "event9")
         
-      }else if (input$nav== " DEMO"){
+      }else if (input$nav== "DEMO"){
         DEMO.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "DEMOOdata.csv"),
                                    file = tempfile(fileext = ".csv")
         ) %>%
@@ -508,13 +515,13 @@ server <- function(input, output, session) {
         observeEvent(reactive_expr(), {
           
           tryCatch(
-            if (input$nav== " SNS-Rwanda"){
+            if (input$nav== "SNS-RWANDA"){
               datacrop <- RWA.SUM_data
               rawdata <- RWA.O_data
               columns_to_append <- c("ENID", "HHID", "Trial",#"treat",
                                      "Site Selection", "event1", "event2", "event3", "event4", "event5", "event6","event7")
               
-            }else if (input$nav== " Solidaridad Soy Advisory"){
+            }else if (input$nav== "Solidaridad-Soy-Advisory"){
               if ("Validation" %in% stageUsecase ){
                 datacrop <- SOL.SUM_data
                 rawdata <- SOL.O_data
@@ -549,7 +556,7 @@ server <- function(input, output, session) {
               
               
               
-            }else if (input$nav== " Mercy Corps SPROUT"){
+            }else if (input$nav== "Mercy-Corps-SPROUT"){
               MC.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "MCOdata.csv"),
                                        file = tempfile(fileext = ".csv")
               ) %>%
@@ -567,7 +574,7 @@ server <- function(input, output, session) {
               columns_to_append <- c("ENID", "HHID", "Trial",#"treat",
                                      "Site Selection", "event1", "event2", "event3", "event4", "event5", "event6", "event7")
               
-            }else if (input$nav== " GH-CerLeg-Esoko"){
+            }else if (input$nav== "GH-CerLeg-Esoko"){
               CE.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "CEOdata.csv"),
                                        file = tempfile(fileext = ".csv")
               ) %>%
@@ -606,7 +613,7 @@ server <- function(input, output, session) {
               }
               
               
-            }else if (input$nav== " DEMO"){
+            }else if (input$nav== "DEMO"){
               DEMO.O_data <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "DEMOOdata.csv"),
                                        file = tempfile(fileext = ".csv")
               ) %>%
@@ -1678,6 +1685,6 @@ server <- function(input, output, session) {
 }
 
 # Run the application
-shinyApp(ui = ui, server = server,options = list(port = 8000))    #auth0 rmv
-#auth0::shinyAppAuth0(ui = ui, server = server,options = list(port = 8000))   #auth0 put
+#shinyApp(ui = ui, server = server,options = list(port = 8000))    #auth0 rmv
+auth0::shinyAppAuth0(ui = ui, server = server,options = list(port = 8000))   #auth0 put
 

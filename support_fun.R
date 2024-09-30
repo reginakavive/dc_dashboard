@@ -1,23 +1,23 @@
 #auth0 rmv
-# #load data(updated daily)
-usersdata <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "usecases_updated.csv"),
-                          file = tempfile(fileext = ".csv")
-) %>%
-  fread()
-
-# usersdata <- read.csv("./data/usecases_updated.csv")
-usersdata<-usersdata[, -1]
-usersdata$shortName <- paste("",usersdata$shortName)
-
-userList<-as.data.frame(strsplit((paste0(usersdata$users, collapse=",")), ','))[,1]
-passList<-as.data.frame(strsplit((paste0(usersdata$password, collapse=",")), ','))[,1]
-permissionList<-as.data.frame(strsplit((paste0(usersdata$permissions, collapse=",")), ','))[,1]
-#toremove ...replace with auth0 after deploy
-user_base <- dplyr::tibble(
-  user = unique(userList),
-  password = sapply(unique(passList), sodium::password_store),
-  permissions = unique(permissionList)#,
-)
+# # #load data(updated daily)
+# usersdata <- save_object(paste0("s3://rtbglr/", Sys.getenv("bucket_path"), "usecases_updated.csv"),
+#                           file = tempfile(fileext = ".csv")
+# ) %>%
+#   fread()
+# 
+# # usersdata <- read.csv("./data/usecases_updated.csv")
+# usersdata<-usersdata[, -1]
+# usersdata$shortName <- paste("",usersdata$shortName)
+# 
+# userList<-as.data.frame(strsplit((paste0(usersdata$users, collapse=",")), ','))[,1]
+# passList<-as.data.frame(strsplit((paste0(usersdata$password, collapse=",")), ','))[,1]
+# permissionList<-as.data.frame(strsplit((paste0(usersdata$permissions, collapse=",")), ','))[,1]
+# #toremove ...replace with auth0 after deploy
+# user_base <- dplyr::tibble(
+#   user = unique(userList),
+#   password = sapply(unique(passList), sodium::password_store),
+#   permissions = unique(permissionList)#,
+# )
 #auth0 rmv
 
 #basemap for leaflet
@@ -113,22 +113,25 @@ dropdownMenuCustom <-     function (..., type = c("messages", "notifications", "
 #   
 # }
 
+
+
 jscode <- "
 shinyjs.hrefAuto = function(url) { window.location.href = url;};"
 
 #auth0 put
-# usecases.index<-c("ATAFI-MOVE" =1 , "BAYGAP-(BAYER)" =2 ,  "Cocoa-Soils" = 3  , "DEMO"  =21   , "DRC-Coffee-OLAM" =5 ,
-#                   "DSR-Extension-Vietnam"=6 ,   "DSRC-SE-ASIA" =7  ,"DigGreen-ETHIOPIA" =8 , "Fert-Ethiopia" =9 ,"Govt-Egypt"   =10 ,
-#                   "Govt-LatAm"=11 , "KALRO"  =20,  "Mercy-Corps-SPROUT" = 18  ,    "Morocco-CA" =14     , "One-Acre-Fund"  =12   ,
-#                   "Planting-S-Asia"  =16  ,      "Rainforest-Alliance" =17  ,   "SAA-NIGERIA"   =13    ,  "SNS-RWANDA" =4 ,
-#                   "Solidaridad-Soy-Advisory"=15,  "ex-Wcover-Ghana"  =19)
+usecases.index<-c("ATAFI-MOVE" =1 , "BAYGAP-(BAYER)" =2 ,  "Cocoa-Soils" = 3  , "DEMO"  =21   , "DRC-Coffee-OLAM" =5 ,
+                  "DSR-Extension-Vietnam"=6 ,   "DSRC-SE-ASIA" =7  ,"DigGreen-ETHIOPIA" =8 , "Fert-Ethiopia" =9 ,"Govt-Egypt"   =10 ,
+                  "Govt-LatAm"=11 , "KALRO"  =20,  "Mercy-Corps-SPROUT" = 18  ,    "Morocco-CA" =14     , "One-Acre-Fund"  =12   ,
+                  "Planting-S-Asia"  =16  ,      "Rainforest-Alliance" =17  ,   "SAA-NIGERIA"   =13    ,  "SNS-RWANDA" =4 ,
+                  "Solidaridad-Soy-Advisory"=15,  "GH-CerLeg-Esoko"  =19, "ex-Wcover-Ghana" = 22)
 #auth0 put
 
-# Function to create a tab panel  #auth0 rmv
-usecases.index<-c(  " SAA-Nigeria"  =1           , " DigGreen-Ethiopia"  =2  ," Fert-Ethiopia"     =3    , " SNS-Rwanda"  =4  ,  " ATAFI/MOVE"    =5      , " GH-CerLeg-Esoko" =19     ,
-                   " Planting-S-Asia" =7     ," DSRC-SE-Asia" =8       ,   " Govt-Egypt"     =9    ," Govt-LatAm"  =10     ,   " Cocoa Soils"  =11   ,   " Rainforest Alliance" =12  ,
-                   " One Acre Fund"    =13     ,  " DRC Coffee OLAM"  =14       ,   " Solidaridad Soy Advisory" =15 , " DSR Extension Vietnam" =16  , " Morocco CA" =17          ,  " Mercy Corps SPROUT"  =18,
-                   " BAYGAP (BAYER)" =6, " KALRO" =20, " DEMO" =21, " ex-Wcover-Ghana" = 22 )
+#auth0 rmv
+# # Function to create a tab panel  #auth0 rmv
+# usecases.index<-c(  " SAA-Nigeria"  =1           , " DigGreen-Ethiopia"  =2  ," Fert-Ethiopia"     =3    , " SNS-Rwanda"  =4  ,  " ATAFI/MOVE"    =5      , " GH-CerLeg-Esoko" =19     ,
+#                    " Planting-S-Asia" =7     ," DSRC-SE-Asia" =8       ,   " Govt-Egypt"     =9    ," Govt-LatAm"  =10     ,   " Cocoa Soils"  =11   ,   " Rainforest Alliance" =12  ,
+#                    " One Acre Fund"    =13     ,  " DRC Coffee OLAM"  =14       ,   " Solidaridad Soy Advisory" =15 , " DSR Extension Vietnam" =16  , " Morocco CA" =17          ,  " Mercy Corps SPROUT"  =18,
+#                    " BAYGAP (BAYER)" =6, " KALRO" =20, " DEMO" =21, " ex-Wcover-Ghana" = 22 )
 
 #usecases.index<-c(  " SNS-Rwanda"  =4  ,   " Solidaridad Soy Advisory" =15 ," KALRO" =20  )
 #auth0 rmv
